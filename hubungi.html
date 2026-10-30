@@ -64,12 +64,22 @@
         </h2>
         <p style="color: #555; margin-bottom: 20px;">Ada soalan atau cadangan? Hantar mesej terus ke emel cikgu di bawah.</p>
         
-        <form id="borangHubungi">
-            <input type="text" id="namaPemanggil" class="input-box" placeholder="Nama Anda (Cth: Qadreya)" required>
-            <input type="email" id="emelPemanggil" class="input-box" placeholder="Emel Anda (Cth: pelajar@gmail.com)" required>
-            <textarea id="mesejPemanggil" class="input-box" rows="5" placeholder="Tulis mesej atau soalan anda di sini..." required></textarea>
+        <!-- ========================================== -->
+        <!-- SISTEM BORANG BAHARU (LEBIH STABIL & KALIS RALAT) -->
+        <!-- Sila pastikan anda menukar emel di bawah! -->
+        <!-- ========================================== -->
+        <form action="https://formsubmit.co/alfatehmd2013@gmail.com" method="POST" target="_blank" onsubmit="tunjukPopup()">
             
-            <button type="button" class="butang-hantar" onclick="hantarMesej()">Hantar Mesej 🚀</button>
+            <!-- Tetapan Keselamatan FormSubmit -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="Mesej Baru Dari Portal PINTAR!">
+            
+            <!-- Kita gunakan 'name' supaya FormSubmit faham datanya -->
+            <input type="text" name="Nama_Pelajar" class="input-box" placeholder="Nama Anda (Cth: Qadreya)" required>
+            <input type="email" name="Email_Pelajar" class="input-box" placeholder="Emel Anda (Cth: pelajar@gmail.com)" required>
+            <textarea name="Mesej" class="input-box" rows="5" placeholder="Tulis mesej atau soalan anda di sini..." required></textarea>
+            
+            <button type="submit" class="butang-hantar">Hantar Mesej 🚀</button>
         </form>
     </div>
 
@@ -77,8 +87,9 @@
     <div class="modal-latar" id="popupBerjaya">
         <div class="modal-kandungan">
             <h1 style="font-size: 60px; margin: 0;">✅</h1>
-            <h2 style="color: #28a745;">Mesej Dihantar!</h2>
-            <p id="teksPopup" style="color: #555;">Mesej anda telah masuk ke dalam emel cikgu.</p>
+            <h2 style="color: #28a745;">Tab Baharu Dibuka!</h2>
+            <p id="teksPopup" style="color: #555;">Sistem sedang memproses mesej anda di tab bersebelahan.</p>
+            <p style="color: #e74c3c; font-size: 14px;"><em>*Jika ini kali pertama, sila semak emel anda untuk pengesahan sistem.</em></p>
             <button onclick="tutupPopup()" style="background-color: #333; color: white; padding: 10px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px;">Tutup</button>
         </div>
     </div>
@@ -88,51 +99,13 @@
     </div>
 
     <script>
-        function hantarMesej() {
-            var nama = document.getElementById("namaPemanggil").value;
-            var emel = document.getElementById("emelPemanggil").value;
-            var mesej = document.getElementById("mesejPemanggil").value;
-
-            if(nama === "" || emel === "" || mesej === "") {
-                alert("Sila isi semua maklumat (Nama, Emel dan Mesej) sebelum menghantar!");
-                return;
-            }
-
-            var butang = document.querySelector(".butang-hantar");
-            butang.innerHTML = "Sedang Menghantar... ⏳";
-            butang.style.backgroundColor = "#6c757d"; 
-
-            // ==========================================
-            // MAGIS FORMSUBMIT (HANTAR KE EMEL SEBENAR)
-            // TUKAR 'emelanda@gmail.com' KE EMEL SEBENAR ANDA
-            // ==========================================
-            fetch("[https://formsubmit.co/ajax/alfatehmd2013@gmail.com](https://formsubmit.co/ajax/alfatehmd2013@gmail.com)", {
-                method: "POST",
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    Nama_Pelajar: nama,
-                    Emel_Pelajar: emel,
-                    Mesej: mesej
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                butang.innerHTML = "Hantar Mesej 🚀";
-                butang.style.backgroundColor = "#007bff";
-                
-                document.getElementById("teksPopup").innerHTML = "Terima kasih <strong>" + nama + "</strong>! Mesej anda telah dihantar ke emel cikgu.";
+        // JavaScript yang sangat ringkas, tiada lagi 'fetch' yang merumitkan
+        function tunjukPopup() {
+            setTimeout(function() {
                 document.getElementById("popupBerjaya").style.display = "flex";
-                
-                document.getElementById("borangHubungi").reset();
-            })
-            .catch(error => {
-                alert("Maaf, mesej gagal dihantar. Sila semak sambungan internet anda.");
-                butang.innerHTML = "Hantar Mesej 🚀";
-                butang.style.backgroundColor = "#007bff";
-            });
+                // Mengosongkan borang selepas dihantar
+                document.querySelector("form").reset();
+            }, 500);
         }
 
         function tutupPopup() {
