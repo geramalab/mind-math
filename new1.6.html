@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 1 - Pintar Matematik</title> <!-- Boleh tukar mengikut bab -->
+    
+    <style>
+        /* Gaya asas dikekalkan supaya seragam dengan muka depan */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #FFD700, #FFB300); 
+            border-bottom: 4px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0; 
+            z-index: 100;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #FFC107;
+            color: #333;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 0 0 8px 8px;
+            max-height: 400px;
+            overflow-y: auto; 
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            display: block;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            font-weight: normal;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            padding-left: 24px; 
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* GAYA ISI KANDUNGAN UNTUK NOTA IMEJ */
+        .main-content {
+            padding: 40px 20px;
+            text-align: center;
+            flex: 1; 
+            background-color: white;
+            margin: 30px 200px; 
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        @media (max-width: 900px) {
+            .main-content { margin: 30px 20px; }
+        }
+        
+        /* GAYA KHAS UNTUK IMEJ NOTA SUPAYA CANTIK DAN KEMAS */
+        .nota-imej {
+            width: 100%;
+            max-width: 900px; /* Saiz maksimum imej */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            margin-top: 20px;
+        }
+
+        .footer {
+            background-color: #222;
+            color: #ccc;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer span.highlight { color: #FFC107; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER (Kekal Sama) -->
+    <div class="header-container">
+        <img src="logomath.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo">
+        <img src="logotulis.png" style="height: 90px; width: auto;" alt="Tulisan Pintar">
+    </div>
+
+<!-- BAHAGIAN MENU NAVIGASI (Navbar) -->
+    <nav class="navbar">
+        <a href="index.html">Laman Utama</a>
+        
+        <div class="dropdown">
+            <a href="#">Matematik Tingkatan 1 ▼</a>
+            <div class="dropdown-content">
+                <!-- Pautan ke muka surat setiap bab yang telah disiapkan -->
+                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
+                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="new3.2.html">Bab 3: Kuasa Dua, Punca Kuasa Dua...</a>
+                
+                <!-- Bab yang belum buat, biarkan tanda # -->
+                <a href="new4.2.html">Bab 4: Nisbah, Kadar dan Kadaran</a>
+                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
+                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+                <a href="#">Bab 7: Ketaksamaan Linear</a>
+                <a href="#">Bab 8: Garis dan Sudut</a>
+                <a href="#">Bab 9: Poligon Asas</a>
+                <a href="#">Bab 10: Perimeter dan Luas</a>
+                <a href="#">Bab 11: Pengenalan Set</a>
+                <a href="#">Bab 12: Pengendalian Data</a>
+                <a href="#">Bab 13: Teorem Pythagoras</a>
+            </div>
+        </div>
+
+        <a href="interaktif 1.html">Interaktif</a>
+        <a href="hubungi.html">Hubungi Kami</a>
+    </nav>
+
+<!-- BAHAGIAN KANDUNGAN UTAMA (Isi Web) -->
+    <div class="main-content" style="text-align: left; padding: 40px 50px;">
+
+        <!-- Tajuk Utama Bab -->
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; text-align: center;">
+            Bab 1: Nombor Nisbah
+        </h2>
+        <br>
+
+        <!-- ==========================================
+             SUBTOPIK 1.1: INTEGER
+             ========================================== -->
+        <h3 style="color: #0056b3;">1.1 Integer</h3>
+        <p>Integer ialah kumpulan nombor yang mengandungi <strong>nombor bulat positif</strong>, <strong>nombor bulat negatif</strong>, dan <strong>sifar (0)</strong>. Pecahan dan perpuluhan <em>bukan</em> integer.</p>
+        
+        <ul>
+            <li><strong>Integer Positif:</strong> 1, 2, 3, 4 ... (Lebih besar daripada sifar)</li>
+            <li><strong>Integer Negatif:</strong> -1, -2, -3, -4 ... (Kurang daripada sifar)</li>
+            <li><strong>Sifar (0):</strong> Bukan positif dan bukan negatif.</li>
+        </ul>
+
+        <!-- Kotak Info Tip -->
+        <div style="background-color: #eef2f3; border-left: 5px solid #FFC107; padding: 15px; margin: 25px 0; border-radius: 0 8px 8px 0;">
+            <h4 style="margin: 0 0 10px 0; color: #d35400;">💡 Tip Penting: Garis Nombor</h4>
+            <p style="margin: 0;">
+                Semakin ke <strong>kanan</strong>, nilai nombor semakin <strong>besar</strong>.<br>
+                Semakin ke <strong>kiri</strong>, nilai nombor semakin <strong>kecil</strong>.<br><br>
+                Contoh perbandingan: <strong>3 &gt; -5</strong> (3 lebih besar daripada -5)
+            </p>
+        </div>
+
+        <!-- ==========================================
+             KOTAK UJI MINDA INTERAKTIF (Boleh Lipat)
+             ========================================== -->
+        <details style="background-color: #fff; border: 1px solid #c3e6cb; margin: 20px 0; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden;">
+            
+            <!-- Tajuk Kotak (Boleh di-klik) -->
+            <summary style="padding: 15px 20px; font-weight: bold; cursor: pointer; color: #155724; background-color: #d4edda; list-style: none; font-size: 16px;">
+                📝 Uji Minda 1.1: Jom Uji Kefahaman Anda! (Klik di sini)
+            </summary>
+            
+            <!-- Isi Kandungan Kotak (Soalan) -->
+            <div style="padding: 20px;">
+                <p><strong>Soalan 1:</strong> Antara nombor berikut, yang manakah <strong>bukan</strong> integer?</p>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 8px;">A) -18</li>
+                    <li style="margin-bottom: 8px;">B) 0</li>
+                    <li style="margin-bottom: 8px;">C) 7.5</li>
+                    <li style="margin-bottom: 8px;">D) 42</li>
+                </ul>
+
+                <!-- Kotak Jawapan Tersembunyi (Dalam Kotak Soalan) -->
+                <details style="margin-top: 20px;">
+                    <summary style="display: inline-block; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                        👀 Semak Jawapan
+                    </summary>
+                    <div style="margin-top: 15px; padding: 15px; background-color: #f8f9fa; border-left: 4px solid #007bff; border-radius: 4px;">
+                        <span style="color: #28a745; font-weight: bold; font-size: 18px;">Jawapan: C (7.5)</span>
+                        <p style="margin: 10px 0 0 0;"><strong>Penerangan:</strong> Integer hanya mengandungi nombor bulat (positif dan negatif) serta sifar. Nombor perpuluhan seperti 7.5 bukan satu integer.</p>
+                    </div>
+                </details>
+            </div>
+            
+        </details>
+
+        <!-- Garisan pemisah antara subtopik -->
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
+
+
+        <!-- ==========================================
+             SUBTOPIK 1.2: OPERASI ASAS ARITMETIK
+             ========================================== -->
+        <h3 style="color: #0056b3;">1.2 Operasi Asas Aritmetik Melibatkan Integer</h3>
+        <p>Apabila menyelesaikan operasi yang melibatkan tanda positif (+) dan negatif (-), ingat peraturan pendaraban tanda ini:</p>
+
+        <!-- Jadual Hukum Tanda yang Kemas -->
+        <table style="width: 100%; max-width: 400px; border-collapse: collapse; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 10px; background-color: #f2f2f2;">Operasi</th>
+                <th style="border: 1px solid #ddd; padding: 10px; background-color: #f2f2f2;">Hasil Tanda</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">(+) bertemu (+)</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; font-weight: bold; color: green;">+</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">(-) bertemu (-)</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; font-weight: bold; color: green;">+</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">(+) bertemu (-)</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; font-weight: bold; color: red;">-</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">(-) bertemu (+)</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; font-weight: bold; color: red;">-</td>
+            </tr>
+        </table>
+
+        <p><strong>Tertib Operasi (BODMAS / KuDaBaTaTa):</strong></p>
+        <ol>
+            <li><strong>Ku</strong>rungan (Selesaikan dalam kurungan dahulu)</li>
+            <li><strong>Da</strong>rab atau <strong>Ba</strong>hagi (Dari kiri ke kanan)</li>
+            <li><strong>Ta</strong>mbah atau <strong>To</strong>lak (Dari kiri ke kanan)</li>
+        </ol>
+
+        <!-- Garisan pemisah antara subtopik -->
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
+
+
+        <!-- ==========================================
+             SUBTOPIK 1.3: PECAHAN
+             ========================================== -->
+        <h3 style="color: #0056b3;">1.3 Pecahan Positif dan Pecahan Negatif</h3>
+        <p>Sama seperti integer, pecahan juga boleh bernilai positif atau negatif. Pecahan juga boleh diwakili pada garis nombor.</p>
+
+        <!-- Kotak Menunjukkan Pecahan menggunakan HTML/CSS -->
+        <div style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 15px; text-align: center; border-radius: 8px; margin: 20px 0;">
+            <p style="margin-top: 0;">Contoh pecahan:</p>
+            
+            <!-- Kod Pecahan 1/2 -->
+            <span style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 15px;">
+                <span style="border-bottom: 2px solid black; display: block; padding: 0 5px;">1</span>
+                <span style="display: block; padding: 0 5px;">2</span>
+            </span>
+            
+            &nbsp; dan &nbsp;
+            
+            <!-- Kod Pecahan Negatif -3/4 -->
+            <span style="display: inline-block; vertical-align: middle; margin-right: 5px; font-weight: bold;">-</span>
+            <span style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 15px;">
+                <span style="border-bottom: 2px solid black; display: block; padding: 0 5px;">3</span>
+                <span style="display: block; padding: 0 5px;">4</span>
+            </span>
+        </div>
+
+        <p><strong>Cara Membandingkan Pecahan:</strong><br>
+        Untuk membandingkan nilai dua pecahan, pastikan <strong>penyebut</strong> (nombor di bahagian bawah) disamakan terlebih dahulu. Kemudian, bandingkan nombor pengangka (di bahagian atas).</p>
+
+        <!-- Garisan pemisah dari Bab 1.3 -->
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
+
+        <!-- ==========================================
+             SUBTOPIK 1.4: PERPULUHAN
+             ========================================== -->
+        <h3 style="color: #0056b3;">1.4 Perpuluhan Positif dan Perpuluhan Negatif</h3>
+        <p>Perpuluhan juga mempunyai nilai positif dan negatif. Sama seperti integer dan pecahan, perpuluhan juga boleh disusun dan diwakili pada garis nombor.</p>
+        
+        <p><strong>Peraturan Operasi Asas:</strong><br>
+        Operasi tambah, tolak, darab, dan bahagi bagi perpuluhan juga mematuhi <strong>hukum tanda</strong> dan <strong>tertib operasi (BODMAS)</strong> yang sama seperti integer.</p>
+
+        <!-- Kotak Info Tip Perpuluhan -->
+        <div style="background-color: #eef2f3; border-left: 5px solid #FFC107; padding: 15px; margin: 25px 0; border-radius: 0 8px 8px 0;">
+            <h4 style="margin: 0 0 10px 0; color: #d35400;">💡 Tip Mengira Perpuluhan</h4>
+            <p style="margin: 0;">
+                Apabila menyelesaikan operasi menambah atau menolak bentuk lazim nombor perpuluhan, pastikan <strong>titik perpuluhan</strong> disusun pada kedudukan yang selari (sebaris dari atas ke bawah).
+            </p>
+        </div>
+
+        <!-- Garisan pemisah antara subtopik -->
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
+
+
+        <!-- ==========================================
+             SUBTOPIK 1.5: NOMBOR NISBAH
+             ========================================== -->
+        <h3 style="color: #0056b3;">1.5 Nombor Nisbah</h3>
+        <p>Apakah itu Nombor Nisbah? Nombor nisbah ialah nombor yang boleh ditulis dalam <strong>bentuk pecahan</strong>, iaitu:</p>
+
+        <!-- Kotak Formula Pecahan (p/q) -->
+        <div style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 15px; text-align: center; border-radius: 8px; margin: 20px 0;">
+            
+            <!-- Kod Pecahan p/q -->
+            <span style="display: inline-block; vertical-align: middle; text-align: center; font-size: 22px; font-weight: bold;">
+                <span style="border-bottom: 2px solid black; display: block; padding: 0 15px;">p</span>
+                <span style="display: block; padding: 0 15px;">q</span>
+            </span>
+            
+            <p style="margin: 15px 0 0 0; font-size: 15px; color: #444;">
+                Dengan keadaan <strong>p</strong> dan <strong>q</strong> ialah integer, dan <strong>q &ne; 0</strong> (q tidak boleh bernilai sifar).
+            </p>
+        </div>
+
+        <p><strong>Contoh Nombor Nisbah:</strong><br>
+        Sebenarnya, hampir semua nombor yang kita pelajari setakat ini adalah nombor nisbah! Mari kita lihat mengapa:</p>
+
+        <ul>
+            <li style="margin-bottom: 10px;"><strong>Semua Integer:</strong> Contohnya nombor 5 ialah nombor nisbah kerana ia boleh ditulis sebagai pecahan <strong>5/1</strong>.</li>
+            <li style="margin-bottom: 10px;"><strong>Semua Pecahan:</strong> Contohnya <strong>2/3</strong> atau <strong>-4/5</strong> (sudah semestinya dalam bentuk p/q).</li>
+            <li style="margin-bottom: 10px;"><strong>Perpuluhan Terhingga:</strong> Contohnya 0.25 ialah nombor nisbah kerana ia boleh ditukar menjadi pecahan <strong>1/4</strong>.</li>
+            <li style="margin-bottom: 10px;"><strong>Perpuluhan Berulang:</strong> Contohnya 0.333... ialah nombor nisbah kerana ia bernilai sama dengan <strong>1/3</strong>.</li>
+        </ul>
+
+<!-- ==========================================
+             KOTAK UJI MINDA INTERAKTIF (Latihan Bab 1)
+             ========================================== -->
+        
+        <br><br>
+        <h3 style="color: #155724; text-align: center; border-top: 2px solid #28a745; padding-top: 20px;">
+            📝 Latihan Pengukuhan Bab 1
+        </h3>
+        <p style="text-align: center; color: #555;">Sila baca soalan dan fikirkan jawapan. Kemudian klik butang semak.</p>
+
+        <!-- Soalan 1 -->
+        <div style="background-color: #f8f9fa; border: 1px solid #ced4da; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 20px;">
+            
+            <p style="font-weight: bold; color: #333; margin-top: 0; font-size: 16px;">
+                Soalan 1: Antara nombor berikut, yang manakah BUKAN integer?
+            </p>
+            
+            <ul style="list-style-type: none; padding-left: 0; margin-bottom: 20px; color: #444;">
+                <li style="margin-bottom: 8px;">A) 0</li>
+                <li style="margin-bottom: 8px;">B) -45</li>
+                <li style="margin-bottom: 8px;">C) 3.14</li>
+                <li style="margin-bottom: 8px;">D) 89</li>
+            </ul>
+
+            <!-- Butang Semak Jawapan -->
+            <details>
+                <summary style="display: inline-block; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; outline: none;">
+                    👀 Semak Jawapan
+                </summary>
+                <div style="margin-top: 15px; padding: 15px; background-color: #d4edda; border-left: 4px solid #28a745; border-radius: 4px;">
+                    <span style="color: #155724; font-weight: bold; font-size: 18px;">Jawapan: C (3.14)</span>
+                    <p style="margin: 10px 0 0 0; color: #155724;">
+                        <strong>Penerangan:</strong> Integer hanya terdiri daripada nombor bulat (positif dan negatif) serta sifar. 3.14 adalah nombor perpuluhan.
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Soalan 2 -->
+        <div style="background-color: #f8f9fa; border: 1px solid #ced4da; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 20px;">
+            
+            <p style="font-weight: bold; color: #333; margin-top: 0; font-size: 16px;">
+                Soalan 2: Selesaikan operasi berikut: (-5) + (-3) = ?
+            </p>
+            
+            <ul style="list-style-type: none; padding-left: 0; margin-bottom: 20px; color: #444;">
+                <li style="margin-bottom: 8px;">A) -2</li>
+                <li style="margin-bottom: 8px;">B) 8</li>
+                <li style="margin-bottom: 8px;">C) -8</li>
+                <li style="margin-bottom: 8px;">D) 15</li>
+            </ul>
+
+            <!-- Butang Semak Jawapan -->
+            <details>
+                <summary style="display: inline-block; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; outline: none;">
+                    👀 Semak Jawapan
+                </summary>
+                <div style="margin-top: 15px; padding: 15px; background-color: #d4edda; border-left: 4px solid #28a745; border-radius: 4px;">
+                    <span style="color: #155724; font-weight: bold; font-size: 18px;">Jawapan: C (-8)</span>
+                    <p style="margin: 10px 0 0 0; color: #155724;">
+                        <strong>Penerangan:</strong> Tanda (+) bertemu (-) menjadi (-). Jadi persamaannya ialah -5 - 3 = -8. Ibarat anda berhutang RM5, kemudian berhutang lagi RM3.
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Soalan 3 -->
+        <div style="background-color: #f8f9fa; border: 1px solid #ced4da; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 20px;">
+            
+            <p style="font-weight: bold; color: #333; margin-top: 0; font-size: 16px;">
+                Soalan 3: Adakah 0.75 satu nombor nisbah?
+            </p>
+            
+            <ul style="list-style-type: none; padding-left: 0; margin-bottom: 20px; color: #444;">
+                <li style="margin-bottom: 8px;">A) Ya, kerana ia boleh ditukar kepada pecahan 3/4.</li>
+                <li style="margin-bottom: 8px;">B) Tidak, kerana ia nombor perpuluhan.</li>
+                <li style="margin-bottom: 8px;">C) Ya, kerana ia lebih besar daripada sifar.</li>
+                <li style="margin-bottom: 8px;">D) Tidak, kerana ia tidak mempunyai penyebut.</li>
+            </ul>
+
+            <!-- Butang Semak Jawapan -->
+            <details>
+                <summary style="display: inline-block; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; outline: none;">
+                    👀 Semak Jawapan
+                </summary>
+                <div style="margin-top: 15px; padding: 15px; background-color: #d4edda; border-left: 4px solid #28a745; border-radius: 4px;">
+                    <span style="color: #155724; font-weight: bold; font-size: 18px;">Jawapan: A</span>
+                    <p style="margin: 10px 0 0 0; color: #155724;">
+                        <strong>Penerangan:</strong> Nombor nisbah ialah sebarang nombor yang boleh ditulis dalam bentuk pecahan p/q. 0.75 bersamaan dengan 3/4.
+                    </p>
+                </div>
+            </details>
+        </div>
+    </div> 
+
+    <!-- FOOTER (Kekal Sama) -->
+    <footer class="footer">
+        Hak cipta terpelihara &copy; <span class="highlight">Kumpulan 2 2026</span><br>
+        <span style="font-size: 12px; color: #777;">Dikemaskini : gramalab</span>
+    </footer>
+
+         
+
+</body>
+</html>

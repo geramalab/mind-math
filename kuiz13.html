@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuiz Cabaran ZEP - Portal Matematik</title>
+    
+    <style>
+        /* Tetapan Asas & Header & Navbar */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        .header-container { display: flex; align-items: center; justify-content: center; padding: 30px; background: linear-gradient(135deg, #FFD700, #FFB300); border-bottom: 4px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .header-container img { transition: transform 0.3s; }
+        .header-container img:hover { transform: scale(1.05); }
+        
+        .navbar { background-color: #333; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
+        .navbar a { color: white; text-decoration: none; padding: 16px 24px; font-size: 16px; font-weight: bold; transition: background 0.3s, color 0.3s; }
+        .navbar a:hover { background-color: #FFC107; color: #333; }
+        
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 250px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; border-radius: 0 0 8px 8px; overflow: hidden; max-height: 400px; }
+        .dropdown-content a { color: #333; padding: 12px 16px; display: block; font-size: 14px; border-bottom: 1px solid #eee; }
+        .dropdown-content a:hover { background-color: #f1f1f1; padding-left: 24px; }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        .main-content { padding: 50px 20px; text-align: center; flex: 1; background-color: white; margin: 30px 200px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .footer { background-color: #222; color: #ccc; text-align: center; padding: 25px 20px; font-size: 14px; line-height: 1.6; }
+        .footer span.highlight { color: #FFC107; font-weight: bold; }
+
+        .butang-bab { background-color: #17a2b8; color: white; padding: 15px 30px; margin: 10px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; width: 240px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .butang-bab:hover { background-color: #138496; transform: translateY(-5px); }
+        .b1 { background-color: #007bff; } .b2 { background-color: #28a745; } .b3 { background-color: #ffc107; color: #333; }
+        .b4 { background-color: #dc3545; } .b5 { background-color: #6f42c1; } .b6 { background-color: #fd7e14; }
+
+        /* =========================================
+           SISTEM KAMERA & DUNIA 
+           ========================================= */
+        #zonPeta { display: none; margin-top: 20px; }
+        
+        /* GAYA BAR KAWALAN BARU (Keluar & Muzik) */
+        .bar-kawalan { display: flex; justify-content: space-between; max-width: 800px; margin: 0 auto 10px auto; }
+        .butang-aksi { padding: 8px 16px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: 0.2s; color: white; }
+        .btn-keluar { background-color: #dc3545; } .btn-keluar:hover { background-color: #c82333; transform: scale(1.05); }
+        .btn-muzik { background-color: #17a2b8; } .btn-muzik:hover { background-color: #138496; transform: scale(1.05); }
+
+        .bar-nyawa { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto 15px auto; padding: 10px 20px; background-color: #f8f9fa; border-radius: 10px; border: 2px solid #ddd; }
+        .kamera-skrin { position: relative; width: 100%; max-width: 800px; height: 500px; background-color: #8fce00; border: 15px solid #6b9e00; border-radius: 15px; margin: 0 auto; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.3); }
+        .dunia-peta { position: absolute; width: 2000px; height: 1500px; background-color: #deb887; background-image: radial-gradient(#c29b6c 15%, transparent 16%), radial-gradient(#c29b6c 15%, transparent 16%); background-size: 60px 60px; background-position: 0 0, 30px 30px; border: 10px dashed #fff; box-sizing: border-box; }
+        .avatar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 100; }
+        .avatar .nama { background: rgba(255,255,255,0.95); padding: 4px 12px; border-radius: 15px; font-size: 13px; font-weight: bold; border: 2px solid #FFC107; margin-bottom: 5px; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.2); white-space: nowrap; }
+        #spritePemain { display: inline-block; font-size: 60px; width: 60px; height: 60px; line-height: 60px; filter: drop-shadow(0px 10px 5px rgba(0,0,0,0.2)); }
+
+        .bola-misi { position: absolute; text-align: center; transform: translate(-50%, -50%); animation: lompatKecil 2s infinite alternate; }
+        .bola-ikon { font-size: 45px; display: block; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); }
+        .bola-misi.selesai .bola-ikon { filter: grayscale(100%); opacity: 0.4; }
+        .bola-misi.selesai { animation: none; }
+        @keyframes lompatKecil { from { transform: translateY(0px); } to { transform: translateY(-8px); } }
+
+        /* KOTAK POPUP */
+        .modal-latar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-kandungan { background-color: white; padding: 30px; border-radius: 15px; max-width: 500px; width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .teks-soalan { font-size: 22px; color: #2c3e50; font-weight: bold; margin-bottom: 25px; }
+        .susunan-pilihan { display: flex; flex-direction: column; gap: 12px; }
+        .butang-pilihan { background-color: #f8f9fa; border: 2px solid #cbd5e1; padding: 15px; font-size: 18px; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: bold; color: #333; }
+        .jawapan-betul { background-color: #28a745 !important; color: white !important; border-color: #1e7e34 !important; }
+        .jawapan-salah { background-color: #dc3545 !important; color: white !important; border-color: #bd2130 !important; animation: gegar 0.4s; }
+        @keyframes gegar { 0% { transform: translateX(0); } 25% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 75% { transform: translateX(-10px); } 100% { transform: translateX(0); } }
+
+        .papan-markah { font-size: 24px; color: #2c3e50; font-weight: bold; display: none; padding: 30px; background-color: #f8f9fa; border-radius: 15px; border: 3px solid #FFC107; max-width: 500px; margin: 0 auto; }
+        @media (max-width: 900px) { .main-content { margin: 30px 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <img src="logomath.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo">
+        <img src="logotulis.png" style="height: 90px; width: auto;" alt="Pintar">
+    </div>
+    <nav class="navbar">
+        <a href="index.html">Laman Utama</a>
+        <div class="dropdown">
+            <a href="#">Matematik Tingkatan 1 ▼</a>
+            <div class="dropdown-content">
+                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
+                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="new3.2.html">Bab 3: Kuasa Dua...</a>
+                <a href="new4.2.html">Bab 4: Nisbah...</a>
+                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
+                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+            </div>
+        </div>
+        <a href="interaktif 1.html">Interaktif</a>
+        <a href="hubungi.html">Hubungi Kami</a>
+    </nav>
+
+    <div class="main-content">
+        
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; display: inline-block;">
+            🌍 Dunia ZEP Terbuka
+        </h2>
+        <p id="tajukKuiz" style="color: #555; margin-bottom: 30px;">Kutip semua bola di bawah 1 minit untuk mendapat pangkat 👑 LEGEND!</p>
+
+        <div id="menuKuiz" style="display: block; margin-bottom: 40px;">
+            <button class="butang-bab b1" onclick="tanyaNama(1)">📘 Bab 1: Nombor Nisbah</button>
+            <button class="butang-bab b2" onclick="tanyaNama(2)">📙 Bab 2: Faktor & Gandaan</button><br>
+            <button class="butang-bab b3" onclick="tanyaNama(3)">📗 Bab 3: Kuasa Dua & Tiga</button>
+            <button class="butang-bab b4" onclick="tanyaNama(4)">📕 Bab 4: Nisbah & Kadar</button><br>
+            <button class="butang-bab b5" onclick="tanyaNama(5)">📓 Bab 5: Ungkapan Algebra</button>
+            <button class="butang-bab b6" onclick="tanyaNama(6)">📔 Bab 6: Persamaan Linear</button>
+        </div>
+
+        <div id="zonPeta">
+            <!-- BAR KAWALAN BARU (KELUAR & MUZIK) -->
+            <div class="bar-kawalan">
+                <button class="butang-aksi btn-keluar" onclick="keluarKeMenu()">⬅️ Keluar</button>
+                <button class="butang-aksi btn-muzik" id="butangMuzik" onclick="toggleMuzik()">🔊 Muzik ON</button>
+            </div>
+
+            <div class="bar-nyawa">
+                <span>Nyawa: <span style="color: #e74c3c; font-size: 24px; letter-spacing: 2px;" id="paparanNyawa">❤️❤️❤️❤️❤️</span></span>
+                <span style="font-weight:bold; color:#e67e22; font-size: 20px;">⏱️ <span id="paparanMasa">00:00</span></span>
+                <span style="font-weight:bold; color:#007bff;">Selesai: <span id="skorMisi">0</span>/<span id="jumlahMisiPaparan">10</span></span>
+            </div>
+            
+            <div class="kamera-skrin" id="kameraSkrin">
+                <div class="dunia-peta" id="duniaPeta"></div>
+                
+                <div class="avatar" id="pemain">
+                    <div class="nama" id="namaDiAtasKepala">Pelajar</div>
+                    <span id="spritePemain">🧍‍♂️</span>
+                </div>
+            </div>
+        </div>
+
+        <audio id="laguGame" src="videoplayback.mp4.mp3" loop></audio>
+
+        <!-- POPUP ISI NAMA -->
+        <div class="modal-latar" id="modalNama">
+            <div class="modal-kandungan">
+                <h2 style="color: #007bff; margin-top: 0;">Kenalkan Diri Anda!</h2>
+                <p style="color: #555;">Sila masukkan nama anda untuk dipaparkan pada watak ZEP.</p>
+                <input type="text" id="inputNamaPelajar" placeholder="Cth: Fatimah" style="width: 90%; padding: 12px; margin-bottom: 20px; border: 2px solid #ccc; border-radius: 8px; font-size: 18px; text-align: center; font-weight: bold;">
+                <button onclick="sahkanNamaDanMula()" style="background-color: #28a745; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; width: 100%;">Terokai Dunia 🚀</button>
+                <!-- Butang Batal kalau tak jadi main -->
+                <button onclick="batalIsiNama()" style="background-color: #dc3545; color: white; padding: 10px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; margin-top: 10px;">Batal</button>
+            </div>
+        </div>
+
+        <!-- POPUP SOALAN -->
+        <div class="modal-latar" id="modalSoalan">
+            <div class="modal-kandungan">
+                <div class="teks-soalan" id="soalan">Soalan dipaparkan di sini...</div>
+                <div class="susunan-pilihan">
+                    <button class="butang-pilihan" onclick="semakJawapan(0, this)" id="pilihan0">A</button>
+                    <button class="butang-pilihan" onclick="semakJawapan(1, this)" id="pilihan1">B</button>
+                    <button class="butang-pilihan" onclick="semakJawapan(2, this)" id="pilihan2">C</button>
+                    <button class="butang-pilihan" onclick="semakJawapan(3, this)" id="pilihan3">D</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- POPUP KEMENANGAN -->
+        <div class="modal-latar" id="modalMenang">
+            <div class="modal-kandungan" style="border: 4px solid #FFD700;">
+                <h1 style="font-size: 60px; margin: 0;" id="ikonRanking">👑</h1>
+                <h2 style="color: #28a745; font-size: 28px; margin-top: 10px;">Tahniah! Misi Selesai!</h2>
+                <p style="font-size: 18px;">Anda telah dianugerahkan gelaran <strong id="teksRanking" style="color:#e67e22; font-size: 22px;">Pangkat: LEGEND</strong></p>
+                <p style="font-size: 16px; color: #555;">Masa Rekod: <span id="masaAkhirMenang" style="font-weight: bold;">00:00</span></p>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button onclick="terusMerayau()" style="flex: 1; background-color: #007bff; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Jalan-jalan Lagi 🚶‍♂️</button>
+                    <button onclick="keluarKeMenu()" style="flex: 1; background-color: #333; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Pilih Bab Lain 🔄</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAPAN MARKAH KALAH -->
+        <div class="papan-markah" id="papanMarkahKalah">
+            <h1 style="font-size: 60px; margin: 0;">💀</h1>
+            <h2 style="color: #dc3545;">Game Over!</h2>
+            <p style="font-size: 18px; color: #555;">Nyawa anda telah habis.</p>
+            <button onclick="keluarKeMenu()" style="background-color: #333; color: white; padding: 12px 25px; border: none; border-radius: 30px; cursor: pointer; font-size: 16px; margin-top: 15px;">Main Semula</button>
+        </div>
+
+    </div>
+
+    <!-- SKRIP JAVASCRIPT: 60 SOALAN KSSM -->
+    <script>
+        var soalanBab1 = [
+            { soalan: "Antara berikut, yang manakah INTEGER NEGATIF?", pilihan: ["0", "3.14", "-18", "1/2"], jawapanBetul: 2 },
+            { soalan: "Selesaikan: (-5) + (-4) = ?", pilihan: ["-9", "9", "-1", "1"], jawapanBetul: 0 },
+            { soalan: "Selesaikan: 7 - (-2) = ?", pilihan: ["5", "9", "-5", "-9"], jawapanBetul: 1 },
+            { soalan: "Selesaikan: (-10) × 3 = ?", pilihan: ["-30", "30", "-13", "13"], jawapanBetul: 0 },
+            { soalan: "Nombor manakah nilainya PALING KECIL?", pilihan: ["-5", "-2", "0", "1"], jawapanBetul: 0 },
+            { soalan: "Selesaikan: 15 ÷ (-3) = ?", pilihan: ["5", "-5", "12", "-12"], jawapanBetul: 1 },
+            { soalan: "Selesaikan: 1/2 + 1/4 = ?", pilihan: ["2/6", "3/4", "1/8", "2/4"], jawapanBetul: 1 },
+            { soalan: "Tukarkan 0.25 kepada pecahan:", pilihan: ["1/2", "1/5", "1/4", "1/10"], jawapanBetul: 2 },
+            { soalan: "Selesaikan: -3.5 + 1.2 = ?", pilihan: ["-4.7", "-2.3", "2.3", "4.7"], jawapanBetul: 1 },
+            { soalan: "Manakah nombor nisbah?", pilihan: ["-7", "0.5", "3/4", "Semua di atas"], jawapanBetul: 3 }
+        ];
+
+        var soalanBab2 = [
+            { soalan: "Antara berikut, yang manakah BUKAN faktor bagi 15?", pilihan: ["3", "5", "10", "15"], jawapanBetul: 2 },
+            { soalan: "Faktor Sepunya Terbesar (FSTB) bagi 6 dan 8 ialah:", pilihan: ["1", "2", "24", "48"], jawapanBetul: 1 },
+            { soalan: "Gandaan Sepunya Terkecil (GSTK) bagi 3 dan 4 ialah:", pilihan: ["7", "1", "12", "24"], jawapanBetul: 2 },
+            { soalan: "Manakah antara berikut NOMBOR PERDANA?", pilihan: ["9", "15", "17", "21"], jawapanBetul: 2 },
+            { soalan: "Apakah nombor perdana terkecil?", pilihan: ["0", "1", "2", "3"], jawapanBetul: 2 },
+            { soalan: "Berapakah bilangan faktor bagi nombor 8?", pilihan: ["2", "3", "4", "5"], jawapanBetul: 2 }, 
+            { soalan: "Senaraikan 3 gandaan pertama bagi 5:", pilihan: ["5,10,15", "1,5,10", "10,20,30", "5,15,25"], jawapanBetul: 0 },
+            { soalan: "FSTB bagi 12 dan 18 ialah?", pilihan: ["2", "3", "6", "36"], jawapanBetul: 2 },
+            { soalan: "GSTK bagi 2, 3 dan 5 ialah?", pilihan: ["10", "15", "30", "60"], jawapanBetul: 2 },
+            { soalan: "Berapakah jumlah nombor perdana antara 1 hingga 10?", pilihan: ["3", "4", "5", "6"], jawapanBetul: 1 } 
+        ];
+
+        var soalanBab3 = [
+            { soalan: "Berapakah nilai bagi 9 kuasa dua (9²)?", pilihan: ["18", "81", "3", "27"], jawapanBetul: 1 },
+            { soalan: "Antara berikut, yang manakah kuasa dua sempurna?", pilihan: ["10", "16", "20", "27"], jawapanBetul: 1 },
+            { soalan: "Punca kuasa tiga bagi 64 ialah...", pilihan: ["4", "8", "16", "32"], jawapanBetul: 0 },
+            { soalan: "Berapakah 5 kuasa tiga (5³)?", pilihan: ["15", "25", "125", "625"], jawapanBetul: 2 },
+            { soalan: "Punca kuasa dua bagi 144 ialah?", pilihan: ["10", "12", "14", "16"], jawapanBetul: 1 },
+            { soalan: "Selesaikan: 3² + 4² = ?", pilihan: ["14", "25", "49", "7"], jawapanBetul: 1 }, 
+            { soalan: "Kuasa dua bagi -6 ialah:", pilihan: ["-36", "36", "-12", "12"], jawapanBetul: 1 },
+            { soalan: "Selesaikan punca kuasa tiga bagi -8:", pilihan: ["-2", "2", "-4", "Tiada jawapan"], jawapanBetul: 0 },
+            { soalan: "Antara berikut, manakah kuasa tiga sempurna?", pilihan: ["9", "16", "27", "100"], jawapanBetul: 2 },
+            { soalan: "Kira: √25 × √4 = ?", pilihan: ["10", "100", "29", "20"], jawapanBetul: 0 } 
+        ];
+
+        var soalanBab4 = [
+            { soalan: "Tulis nisbah 1 epal kepada 3 oren:", pilihan: ["1/3", "1=3", "1:3", "3:1"], jawapanBetul: 2 },
+            { soalan: "Syarat penting sebelum membandingkan nisbah?", pilihan: ["Mesti genap", "Unit SAMA", "Ada simbol RM", "Mesti ganjil"], jawapanBetul: 1 },
+            { soalan: "Kereta bergerak 100km dalam 2 jam. Apakah kadarnya?", pilihan: ["200 km/j", "100 km/j", "50 km/j", "2 km/j"], jawapanBetul: 2 },
+            { soalan: "Permudahkan nisbah 5 : 15 : 20", pilihan: ["1:3:5", "1:3:4", "2:3:4", "Tidak boleh dipermudah"], jawapanBetul: 1 },
+            { soalan: "Jika 1kg ayam = RM8, berapakah harga 3kg?", pilihan: ["RM11", "RM24", "RM32", "RM16"], jawapanBetul: 1 },
+            { soalan: "Tukarkan nisbah 1:2 kepada pecahan:", pilihan: ["2/1", "1/2", "1.2", "0.2"], jawapanBetul: 1 },
+            { soalan: "Jika a:b = 1:2 dan b:c = 2:3, apakah a:b:c?", pilihan: ["1:2:3", "1:4:3", "2:2:3", "1:2:6"], jawapanBetul: 0 },
+            { soalan: "RM15 dibahagikan 1:2 antara Ali dan Abu. Berapa Abu dapat?", pilihan: ["RM5", "RM10", "RM15", "RM30"], jawapanBetul: 1 },
+            { soalan: "Laju bas = 60km/j. Masa diambil untuk 180km?", pilihan: ["2 jam", "3 jam", "4 jam", "6 jam"], jawapanBetul: 1 },
+            { soalan: "Nisbah murid lelaki kepada perempuan 2:3. Jika ada 10 lelaki, berapakah perempuan?", pilihan: ["10", "15", "20", "30"], jawapanBetul: 1 }
+        ];
+
+        var soalanBab5 = [
+            { soalan: "Dalam sebutan 3y, apakah pekali?", pilihan: ["y", "3", "3y", "0"], jawapanBetul: 1 },
+            { soalan: "Manakah sebutan serupa bagi 4x?", pilihan: ["4y", "x", "2x", "4"], jawapanBetul: 2 },
+            { soalan: "Berapa sebutan untuk 2a + 3b - 1?", pilihan: ["1", "2", "3", "4"], jawapanBetul: 2 },
+            { soalan: "Pemboleh ubah bagi -5mn ialah?", pilihan: ["-5", "m", "mn", "-5mn"], jawapanBetul: 2 },
+            { soalan: "Permudahkan: x + x + x", pilihan: ["3x", "x³", "3+x", "x"], jawapanBetul: 0 },
+            { soalan: "Permudahkan: 5a - 2a", pilihan: ["3", "7a", "3a", "-3a"], jawapanBetul: 2 },
+            { soalan: "Darabkan: 2a × 3b", pilihan: ["5ab", "6ab", "23ab", "6a+b"], jawapanBetul: 1 },
+            { soalan: "Kembangkan: 2(x + 3)", pilihan: ["2x + 3", "2x + 6", "x + 6", "5x"], jawapanBetul: 1 },
+            { soalan: "Jika x=2, apakah nilai 3x + 1?", pilihan: ["6", "7", "32", "5"], jawapanBetul: 1 },
+            { soalan: "Sebutan algebra 7xy² terdiri daripada pemboleh ubah...", pilihan: ["x sahaja", "y sahaja", "x dan y", "7"], jawapanBetul: 2 }
+        ];
+
+        var soalanBab6 = [
+            { soalan: "Manakah persamaan linear SATU pemboleh ubah?", pilihan: ["x + y = 2", "x² = 4", "2x = 8", "x - 3"], jawapanBetul: 2 },
+            { soalan: "Selesaikan: x - 4 = 10", pilihan: ["6", "14", "-6", "40"], jawapanBetul: 1 },
+            { soalan: "Selesaikan: 2y = 12", pilihan: ["10", "14", "6", "24"], jawapanBetul: 2 },
+            { soalan: "Selesaikan: x + 5 = 2", pilihan: ["7", "3", "-3", "-7"], jawapanBetul: 2 },
+            { soalan: "Selesaikan: x/3 = 4", pilihan: ["12", "7", "1", "4/3"], jawapanBetul: 0 },
+            { soalan: "Selesaikan: 3x - 1 = 8", pilihan: ["2", "3", "4", "9"], jawapanBetul: 1 },
+            { soalan: "Persamaan linear DUA pemboleh ubah ialah:", pilihan: ["3x = 9", "x + y = 5", "x² = 16", "2 + 3 = 5"], jawapanBetul: 1 },
+            { soalan: "Dalam 2x + y = 10, jika x=3, cari y.", pilihan: ["4", "6", "7", "10"], jawapanBetul: 0 },
+            { soalan: "Ayah umur (x+2) tahun. Jika umur ayah 40, cari x.", pilihan: ["38", "42", "20", "40"], jawapanBetul: 0 },
+            { soalan: "Pilih ayat yang benar:", pilihan: ["2(3) = 5", "Persamaan ada tanda =", "Persamaan tiada tanda =", "x² ialah linear"], jawapanBetul: 1 }
+        ];
+
+        var senaraiSoalanSemasa = [];
+        var indeksSoalanDipilih = 0;
+        var misiDiselesaikan = [];
+        var jumlahNyawa = 5; 
+        var bolehMenjawab = true;
+        
+        var pX = 1000, pY = 750;
+        var kelajuanSmooth = 7; 
+        var sedangJalan = false;
+        var menghadapKanan = true;
+        var frameSemasa = 0;
+        var babDipilihSementera = 0; 
+        var kekunciDitekan = { atas: false, bawah: false, kiri: false, kanan: false };
+        var lokasiBola = [];
+        var pemasaDetik;
+        var saatBerlalu = 0;
+
+        // ==========================================
+        // FUNGSI MUZIK (BARU)
+        // ==========================================
+        function toggleMuzik() {
+            var lagu = document.getElementById("laguGame");
+            var butang = document.getElementById("butangMuzik");
+            if (lagu.paused) {
+                lagu.play();
+                butang.innerHTML = "🔊 Muzik ON";
+                butang.style.backgroundColor = "#17a2b8";
+                butang.style.color = "white";
+            } else {
+                lagu.pause();
+                butang.innerHTML = "🔇 Muzik OFF";
+                butang.style.backgroundColor = "#6c757d"; // Jadi kelabu kalau OFF
+            }
+        }
+
+        // ==========================================
+        // SISTEM MENU & ISI NAMA
+        // ==========================================
+        function tanyaNama(nomborBab) {
+            babDipilihSementera = nomborBab; 
+            document.getElementById("modalNama").style.display = "flex";
+            document.getElementById("inputNamaPelajar").focus();
+        }
+        
+        function batalIsiNama() {
+            document.getElementById("modalNama").style.display = "none";
+        }
+
+        function sahkanNamaDanMula() {
+            var namaDitaip = document.getElementById("inputNamaPelajar").value;
+            if (namaDitaip.trim() === "") namaDitaip = "Pelajar Pintar";
+            document.getElementById("namaDiAtasKepala").innerHTML = namaDitaip;
+            document.getElementById("modalNama").style.display = "none";
+            mulaGame(babDipilihSementera);
+        }
+
+        function mulaGame(nomborBab) {
+            if (nomborBab === 1) senaraiSoalanSemasa = soalanBab1; 
+            if (nomborBab === 2) senaraiSoalanSemasa = soalanBab2; 
+            if (nomborBab === 3) senaraiSoalanSemasa = soalanBab3; 
+            if (nomborBab === 4) senaraiSoalanSemasa = soalanBab4; 
+            if (nomborBab === 5) senaraiSoalanSemasa = soalanBab5; 
+            if (nomborBab === 6) senaraiSoalanSemasa = soalanBab6; 
+
+            var jumlahSoalan = senaraiSoalanSemasa.length;
+            misiDiselesaikan = [];
+            for (var i = 0; i < jumlahSoalan; i++) { misiDiselesaikan.push(false); }
+            
+            jumlahNyawa = 5;
+            pX = 1000; pY = 750;
+            menghadapKanan = true;
+            kekunciDitekan = { atas: false, bawah: false, kiri: false, kanan: false };
+
+            document.getElementById("jumlahMisiPaparan").innerHTML = jumlahSoalan;
+            kemaskiniUI();
+
+            document.getElementById("menuKuiz").style.display = "none";
+            document.getElementById("zonPeta").style.display = "block";
+            document.getElementById("papanMarkahKalah").style.display = "none";
+            
+            lokasiBola = [];
+            for (var j = 0; j < jumlahSoalan; j++) {
+                lokasiBola.push({
+                    x: Math.floor(Math.random() * 1800) + 100, 
+                    y: Math.floor(Math.random() * 1300) + 100  
+                });
+            }
+            janaBolaMisi();
+            kemaskiniKamera(); 
+
+            // Pastikan butang muzik ON bila game baru bermula
+            document.getElementById("laguGame").play();
+            document.getElementById("butangMuzik").innerHTML = "🔊 Muzik ON";
+            document.getElementById("butangMuzik").style.backgroundColor = "#17a2b8";
+
+            clearInterval(pemasaDetik); 
+            saatBerlalu = 0;
+            document.getElementById("paparanMasa").innerHTML = "00:00";
+            pemasaDetik = setInterval(kiraMasa, 1000); 
+        }
+
+        function kiraMasa() {
+            if (document.getElementById("modalSoalan").style.display === "flex" || 
+                document.getElementById("modalNama").style.display === "flex" ||
+                document.getElementById("modalMenang").style.display === "flex") return; 
+            
+            saatBerlalu++;
+            var minit = Math.floor(saatBerlalu / 60);
+            var saat = saatBerlalu % 60;
+            if (minit < 10) minit = "0" + minit;
+            if (saat < 10) saat = "0" + saat;
+            document.getElementById("paparanMasa").innerHTML = minit + ":" + saat;
+        }
+
+        document.addEventListener('keydown', function(event) {
+            var kekunci = event.key.toLowerCase();
+            if (document.getElementById("modalSoalan").style.display === "flex" || document.getElementById("modalMenang").style.display === "flex") return;
+                
+            if (document.getElementById("modalNama").style.display === "flex") {
+                if (kekunci === 'enter') sahkanNamaDanMula(); 
+                return;
+            }
+            if(['arrowup', 'w'].includes(kekunci)) { kekunciDitekan.atas = true; event.preventDefault(); }
+            if(['arrowdown', 's'].includes(kekunci)) { kekunciDitekan.bawah = true; event.preventDefault(); }
+            if(['arrowleft', 'a'].includes(kekunci)) { kekunciDitekan.kiri = true; event.preventDefault(); menghadapKanan = false; }
+            if(['arrowright', 'd'].includes(kekunci)) { kekunciDitekan.kanan = true; event.preventDefault(); menghadapKanan = true; }
+        });
+
+        document.addEventListener('keyup', function(event) {
+            var kekunci = event.key.toLowerCase();
+            if(['arrowup', 'w'].includes(kekunci)) kekunciDitekan.atas = false;
+            if(['arrowdown', 's'].includes(kekunci)) kekunciDitekan.bawah = false;
+            if(['arrowleft', 'a'].includes(kekunci)) kekunciDitekan.kiri = false;
+            if(['arrowright', 'd'].includes(kekunci)) kekunciDitekan.kanan = false;
+        });
+
+        function gameLoop() {
+            if (document.getElementById("zonPeta").style.display === "block" && 
+                document.getElementById("modalSoalan").style.display !== "flex" && 
+                document.getElementById("modalNama").style.display !== "flex" &&
+                document.getElementById("modalMenang").style.display !== "flex") {
+                
+                var adaGerak = false;
+                if (kekunciDitekan.atas) { pY -= kelajuanSmooth; adaGerak = true; }
+                if (kekunciDitekan.bawah) { pY += kelajuanSmooth; adaGerak = true; }
+                if (kekunciDitekan.kiri) { pX -= kelajuanSmooth; adaGerak = true; }
+                if (kekunciDitekan.kanan) { pX += kelajuanSmooth; adaGerak = true; }
+                sedangJalan = adaGerak;
+                
+                if (pX < 50) pX = 50; if (pX > 1950) pX = 1950;
+                if (pY < 50) pY = 50; if (pY > 1450) pY = 1450;
+                
+                kemaskiniKamera();
+                semakPelanggaran();
+            }
+            requestAnimationFrame(gameLoop); 
+        }
+        requestAnimationFrame(gameLoop);
+
+        function kemaskiniKamera() {
+            var dunia = document.getElementById("duniaPeta");
+            var kamera = document.getElementById("kameraSkrin");
+            var tolakDuniaX = (kamera.offsetWidth / 2) - pX;
+            var tolakDuniaY = (kamera.offsetHeight / 2) - pY;
+            dunia.style.left = tolakDuniaX + "px";
+            dunia.style.top = tolakDuniaY + "px";
+        }
+
+        setInterval(function() {
+            var sprite = document.getElementById("spritePemain");
+            if (menghadapKanan) sprite.style.transform = "scaleX(-1)"; 
+            else sprite.style.transform = "scaleX(1)";  
+
+            if (sedangJalan) {
+                frameSemasa = (frameSemasa + 1) % 2; 
+                if (frameSemasa === 0) sprite.innerHTML = "🚶‍♂️"; 
+                else sprite.innerHTML = "🏃‍♂️"; 
+            } else {
+                sprite.innerHTML = "🧍‍♂️"; 
+                frameSemasa = 0;
+            }
+        }, 150); 
+
+        function semakPelanggaran() {
+            for(var i = 0; i < senaraiSoalanSemasa.length; i++) {
+                if (misiDiselesaikan[i]) continue; 
+                var jarakX = Math.abs(pX - lokasiBola[i].x);
+                var jarakY = Math.abs(pY - lokasiBola[i].y);
+                
+                if (jarakX < 50 && jarakY < 50) {
+                    kekunciDitekan = { atas: false, bawah: false, kiri: false, kanan: false };
+                    sedangJalan = false;
+                    bukaSoalan(i);
+                }
+            }
+        }
+
+        function janaBolaMisi() {
+            var peta = document.getElementById("duniaPeta");
+            document.querySelectorAll('.bola-misi').forEach(b => b.remove());
+            for(var i=0; i < senaraiSoalanSemasa.length; i++) {
+                var bola = document.createElement("div");
+                bola.className = "bola-misi";
+                bola.id = "bola_" + i;
+                bola.style.left = lokasiBola[i].x + "px";
+                bola.style.top = lokasiBola[i].y + "px";
+                bola.innerHTML = `<span class="bola-ikon">⚽</span>`;
+                peta.appendChild(bola);
+            }
+        }
+
+        function bukaSoalan(indeks) {
+            indeksSoalanDipilih = indeks;
+            var soalanSemasa = senaraiSoalanSemasa[indeks];
+            document.getElementById("soalan").innerHTML = soalanSemasa.soalan;
+            for(var i=0; i<4; i++) {
+                var butang = document.getElementById("pilihan" + i);
+                butang.innerHTML = ["A) ", "B) ", "C) ", "D) "][i] + soalanSemasa.pilihan[i];
+                butang.className = "butang-pilihan"; 
+            }
+            bolehMenjawab = true;
+            document.getElementById("modalSoalan").style.display = "flex"; 
+        }
+
+        function semakJawapan(pilihanPelajar, butangDitekan) {
+            if (!bolehMenjawab) return;
+            bolehMenjawab = false;
+            var jawapanBetul = senaraiSoalanSemasa[indeksSoalanDipilih].jawapanBetul;
+
+            if (pilihanPelajar === jawapanBetul) {
+                butangDitekan.className = "butang-pilihan jawapan-betul";
+                misiDiselesaikan[indeksSoalanDipilih] = true;
+                document.getElementById("bola_" + indeksSoalanDipilih).className = "bola-misi selesai";
+                pY += 30; 
+            } else {
+                jumlahNyawa--;
+                butangDitekan.className = "butang-pilihan jawapan-salah";
+                document.getElementById("pilihan" + jawapanBetul).className = "butang-pilihan jawapan-betul";
+                pY += 50; 
+            }
+            kemaskiniKamera();
+            kemaskiniUI();
+
+            setTimeout(function() {
+                document.getElementById("modalSoalan").style.display = "none";
+                
+                var jumlahBerjaya = misiDiselesaikan.filter(Boolean).length;
+                var totalSoalan = senaraiSoalanSemasa.length;
+                
+                if (jumlahNyawa <= 0) tamatKalah(); 
+                else if (jumlahBerjaya === totalSoalan) tamatMenang(); 
+            }, 1500); 
+        }
+
+        function kemaskiniUI() {
+            var paparan = "";
+            for(var i=0; i<jumlahNyawa; i++) { paparan += "❤️"; }
+            if(jumlahNyawa === 0) paparan = "💀";
+            document.getElementById("paparanNyawa").innerHTML = paparan;
+            document.getElementById("skorMisi").innerHTML = misiDiselesaikan.filter(Boolean).length;
+        }
+
+        function tamatMenang() {
+            clearInterval(pemasaDetik); 
+            var ranking = ""; var ikon = "";
+            if (saatBerlalu <= 60) { ranking = "LEGEND"; ikon = "👑"; }       
+            else if (saatBerlalu <= 120) { ranking = "PRO"; ikon = "🌟"; }    
+            else { ranking = "ROOKIE"; ikon = "👍"; }                         
+
+            var namaAsal = document.getElementById("inputNamaPelajar").value;
+            if (namaAsal.trim() === "") namaAsal = "Pelajar Pintar";
+            document.getElementById("namaDiAtasKepala").innerHTML = ikon + " [" + ranking + "] " + namaAsal;
+            
+            document.getElementById("ikonRanking").innerHTML = ikon;
+            document.getElementById("teksRanking").innerHTML = "Pangkat: " + ranking;
+            document.getElementById("masaAkhirMenang").innerHTML = document.getElementById("paparanMasa").innerHTML;
+            document.getElementById("modalMenang").style.display = "flex";
+        }
+
+        function tamatKalah() {
+            clearInterval(pemasaDetik); 
+            document.getElementById("zonPeta").style.display = "none";
+            document.getElementById("papanMarkahKalah").style.display = "block";
+        }
+
+        function terusMerayau() {
+            document.getElementById("modalMenang").style.display = "none";
+        }
+
+        // ==========================================
+        // FUNGSI KELUAR KE MENU (BARU)
+        // ==========================================
+        function keluarKeMenu() {
+            // Hentikan Jam
+            clearInterval(pemasaDetik); 
+            
+            // Hentikan Muzik
+            var lagu = document.getElementById("laguGame");
+            lagu.pause();        
+            lagu.currentTime = 0;
+            
+            // Reset Input Nama
+            document.getElementById("inputNamaPelajar").value = "";
+            
+            // Tutup semua paparan game dan buka menu
+            document.getElementById("modalMenang").style.display = "none";
+            document.getElementById("zonPeta").style.display = "none";
+            document.getElementById("papanMarkahKalah").style.display = "none";
+            document.getElementById("menuKuiz").style.display = "block";
+        }
+    </script>
+</body>
+</html>

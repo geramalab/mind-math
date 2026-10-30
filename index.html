@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pintar - Portal Matematik</title>
+    
+    <style>
+        /* Tetapan Asas */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Memastikan footer sentiasa di bawah */
+        }
+
+        /* 1. GAYA HEADER (Bahagian Atas) */
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #FFD700, #FFB300); /* Efek warna menarik */
+            border-bottom: 4px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header-container img {
+            transition: transform 0.3s; /* Efek interaktif bila cursor lalu */
+        }
+        .header-container img:hover {
+            transform: scale(1.05); /* Logo membesar sedikit bila disentuh */
+        }
+
+        /* 2. GAYA MENU NAVIGASI (Navbar) */
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0; /* Menu kekal di atas bila scroll ke bawah */
+            z-index: 100;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #FFC107;
+            color: #333;
+        }
+
+        /* 3. GAYA MENU DROPDOWN (Bab 1-13) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            max-height: 400px;
+            overflow-y: auto; /* Boleh scroll jika senarai panjang */
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            display: block;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            font-weight: normal;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            padding-left: 24px; /* Efek teks bergerak ke kanan bila disentuh */
+        }
+        /* Tunjuk senarai bab bila sentuh butang menu */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 4. GAYA ISI KANDUNGAN (Main Content) */
+        .main-content {
+            padding: 50px 20px;
+            text-align: center;
+            flex: 1; 
+            background-color: white;
+            
+            /* UBAHSUAI DI SINI: Jarak atas/bawah 30px, Kiri/Kanan ditinggalkan 200px */
+            margin: 30px 200px; 
+            
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        /* KESELAMATAN TAMBAHAN UNTUK SKRIN KECIL (Telefon Bimbit) */
+        @media (max-width: 900px) {
+            .main-content {
+                /* Jika skrin mengecil dari 900px, jarak kiri kanan jadi 20px sahaja supaya isi web tak penyek */
+                margin: 30px 20px; 
+            }
+        }
+
+        .main-content h2 {
+            color: #2c3e50;
+        }
+
+        /* 5. GAYA FOOTER (Bahagian Bawah) */
+        .footer {
+            background-color: #222;
+            color: #ccc;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer span.highlight {
+            color: #FFC107;
+            font-weight: bold;
+        }
+        /* Gaya Kotak Bilangan Pelawat */
+        .visitor-counter {
+            display: inline-block;
+            background-color: #FFC107;
+            color: #222;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BAHAGIAN ATAS: Header & Logo -->
+    <div class="header-container">
+        <img src="logomath.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo Mind Pintar">
+        <img src="logotulis.png" style="height: 90px; width: auto;" alt="Tulisan Pintar">
+    </div>
+
+<!-- BAHAGIAN MENU NAVIGASI (Navbar) -->
+    <nav class="navbar">
+        <!-- Pautan ke muka depan -->
+        <a href="index.html">Laman Utama</a>
+        
+        <div class="dropdown">
+            <a href="#">Matematik Tingkatan 1 ▼</a>
+            <div class="dropdown-content">
+                <!-- Pautan ke muka surat setiap bab yang telah disiapkan -->
+                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
+                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="new3.2.html">Bab 3: Kuasa Dua, Punca Kuasa Dua...</a>
+                
+                <!-- Bab yang belum buat, biarkan tanda # (Tanda # maksudnya jangan pergi ke mana-mana) -->
+                <a href="new4.2.html">Bab 4: Nisbah, Kadar dan Kadaran</a>
+                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
+                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+                <a href="#">Bab 7: Ketaksamaan Linear</a>
+                <a href="#">Bab 8: Garis dan Sudut</a>
+                <a href="#">Bab 9: Poligon Asas</a>
+                <a href="#">Bab 10: Perimeter dan Luas</a>
+                <a href="#">Bab 11: Pengenalan Set</a>
+                <a href="#">Bab 12: Pengendalian Data</a>
+                <a href="#">Bab 13: Teorem Pythagoras</a>
+            </div>
+        </div>
+
+        <a href="interaktif 1.html">Interaktif</a>
+        <a href="hubungi.html">Hubungi Kami</a>
+    </nav>
+
+<!-- BAHAGIAN KANDUNGAN UTAMA (Muka Depan) -->
+    <div class="main-content" style="text-align: center; padding: 40px 50px;">
+
+        <!-- 1. Ucapan Selamat Datang -->
+        <h1 style="color: #2c3e50; font-size: 36px; margin-bottom: 10px; margin-top: 0;">
+            👋 Selamat Datang ke Portal MIND MATH!
+        </h1>
+        <p style="font-size: 18px; color: #555; margin-bottom: 40px;">
+            Belajar Matematik Tingkatan 1 kini lebih mudah, santai, dan menyeronokkan.
+        </p>
+
+        <!-- 2. Tiga Kotak Jalan Pintas (Warna Pastel yang ceria) -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-bottom: 50px;">
+            
+            <!-- Kotak 1: Nota Ringkas (Biru Pastel) -->
+            <a href="new1.6.html" style="text-decoration: none; color: #333; width: 220px; background-color: #e3f2fd; padding: 25px; border-radius: 15px; border: 2px solid #90caf9; display: block; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <h1 style="font-size: 45px; margin: 0;">📚</h1>
+                <h3 style="margin: 15px 0 10px 0; color: #1565c0;">Nota Ringkas</h3>
+                <p style="font-size: 14px; color: #555; line-height: 1.5;">Ulang kaji Bab 1 hingga Bab 6 dengan nota yang mudah difahami dan padat.</p>
+            </a>
+
+            <!-- Kotak 2: Zon Interaktif (Merah Jambu Pastel) -->
+            <a href="interaktif 1.html" style="text-decoration: none; color: #333; width: 220px; background-color: #fce4ec; padding: 25px; border-radius: 15px; border: 2px solid #f48fb1; display: block; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <h1 style="font-size: 45px; margin: 0;">🎮</h1>
+                <h3 style="margin: 15px 0 10px 0; color: #c2185b;">Zon Interaktif</h3>
+                <p style="font-size: 14px; color: #555; line-height: 1.5;">Uji minda anda dengan kalkulator, kuiz cabaran, dan permainan teka nombor!</p>
+            </a>
+
+            <!-- Kotak 3: Hubungi (Hijau Pastel) -->
+            <a href="hubungi.html" style="text-decoration: none; color: #333; width: 220px; background-color: #e8f5e9; padding: 25px; border-radius: 15px; border: 2px solid #a5d6a7; display: block; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <h1 style="font-size: 45px; margin: 0;">📞</h1>
+                <h3 style="margin: 15px 0 10px 0; color: #2e7d32;">Tanya Cikgu</h3>
+                <p style="font-size: 14px; color: #555; line-height: 1.5;">Ada soalan yang memeningkan kepala? Hantar mesej kepada pasukan kami di sini.</p>
+            </a>
+
+        </div>
+
+        <!-- 3. Kata-kata Motivasi -->
+        <div style="background-color: #fff3cd; border-left: 8px solid #ffc107; padding: 20px; border-radius: 8px; max-width: 650px; margin: 0 auto; text-align: left;">
+            <p style="margin: 0; font-size: 16px; font-style: italic; color: #856404; line-height: 1.6;">
+                "Matematik bukan sekadar tentang nombor, persamaan, atau algoritma; ia adalah mengenai kefahaman dan cara kita berfikir." <br> 
+                <span style="font-weight: bold; font-style: normal; margin-top: 10px; display: inline-block;">— William Paul Thurston</span>
+            </p>
+        </div>
+
+    <!-- INI PENUTUP KOTAK PUTIH (Sangat Penting) -->
+    </div>
+
+    <!-- BAHAGIAN FOOTER (Bawah) -->
+    <footer class="footer">
+        <div class="visitor-counter">
+            👁️ Bilangan Pelawat: 1,428
+        </div>
+        <br>
+        Hak cipta terpelihara &copy; <span class="highlight">Kumpulan 2 2026</span>
+        <br>
+        <span style="font-size: 12px; color: #777;">Dikemaskini : gramalab</span>
+    </footer>
+
+</body>
+</html>

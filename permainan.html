@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permainan Logik - Portal Matematik</title>
+    
+    <style>
+        /* Tetapan Asas & Header & Navbar */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        .header-container { display: flex; align-items: center; justify-content: center; padding: 30px; background: linear-gradient(135deg, #FFD700, #FFB300); border-bottom: 4px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .header-container img { transition: transform 0.3s; }
+        .header-container img:hover { transform: scale(1.05); }
+        
+        .navbar { background-color: #333; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
+        .navbar a { color: white; text-decoration: none; padding: 16px 24px; font-size: 16px; font-weight: bold; transition: background 0.3s, color 0.3s; }
+        .navbar a:hover { background-color: #FFC107; color: #333; }
+        
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 250px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; border-radius: 0 0 8px 8px; overflow: hidden; max-height: 400px; overflow-y: auto; }
+        .dropdown-content a { color: #333; padding: 12px 16px; display: block; font-size: 14px; border-bottom: 1px solid #eee; font-weight: normal; }
+        .dropdown-content a:hover { background-color: #f1f1f1; padding-left: 24px; }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        .main-content { padding: 50px 20px; text-align: center; flex: 1; background-color: white; margin: 30px 200px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        @media (max-width: 900px) { .main-content { margin: 30px 20px; } }
+        
+        .footer { background-color: #222; color: #ccc; text-align: center; padding: 25px 20px; font-size: 14px; line-height: 1.6; }
+        .footer span.highlight { color: #FFC107; font-weight: bold; }
+
+        /* =========================================
+           TAMBAHAN: GAYA REKA BENTUK PERMAINAN LOGIK
+           ========================================= */
+        .kotak-permainan {
+            background-color: #f8f9fa;
+            border: 2px solid #cbd5e1;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .input-tekaan {
+            font-size: 24px;
+            padding: 15px;
+            width: 150px;
+            text-align: center;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        .butang-teka {
+            background-color: #007bff;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+        .butang-teka:hover { background-color: #0056b3; }
+        
+        .mesej-petunjuk {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 25px 0;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 35px;
+        }
+        .mesej-biru { background-color: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+        .mesej-merah { background-color: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+        .mesej-hijau { background-color: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
+        
+        .rekod-percubaan {
+            font-size: 16px;
+            color: #64748b;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header-container">
+        <img src="logomath.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo Mind Pintar">
+        <img src="logotulis.png" style="height: 90px; width: auto;" alt="Tulisan Pintar">
+    </div>
+
+    <!-- Menu -->
+    <nav class="navbar">
+        <a href="index.html">Laman Utama</a>
+        <div class="dropdown">
+            <a href="#">Matematik Tingkatan 1 ▼</a>
+            <div class="dropdown-content">
+                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
+                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="new3.2.html">Bab 3: Kuasa Dua, Punca Kuasa Dua...</a>
+                <a href="new4.2.html">Bab 4: Nisbah, Kadar dan Kadaran</a>
+                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
+                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+            </div>
+        </div>
+        <a href="interaktif 1.html">Interaktif</a>
+        <a href="hubungi.html">Hubungi Kami</a>
+    </nav>
+
+    <!-- KANDUNGAN UTAMA: PERMAINAN LOGIK -->
+    <div class="main-content">
+        
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; display: inline-block;">
+            🧩 Permainan Logik: Teka Nombor
+        </h2>
+        <p style="color: #555; margin-bottom: 30px;">Gunakan logik dan ketaksamaan (Bab 7) untuk meneka nombor rahsia!</p>
+
+        <!-- Badan Permainan -->
+        <div class="kotak-permainan">
+            <h3 style="margin-top: 0; color: #333;">Saya sedang memikirkan satu nombor dari 1 hingga 100.</h3>
+            <p>Bolehkah anda teka nombor apakah itu?</p>
+            
+            <input type="number" id="nomborTeka" class="input-tekaan" placeholder="0-100" min="1" max="100">
+            <br>
+            <button onclick="semakTekaan()" class="butang-teka" id="butangUtama">Teka Sekarang!</button>
+            
+            <div id="paparanMesej" class="mesej-petunjuk mesej-biru">
+                Mula meneka untuk melihat petunjuk...
+            </div>
+            
+            <div class="rekod-percubaan">
+                Jumlah Percubaan: <span id="bilanganCuba" style="color: #007bff; font-size: 20px;">0</span>
+            </div>
+        </div>
+
+        <br><br>
+        <a href="interaktif 1.html" style="display: inline-block; padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            &larr; Kembali ke Menu Interaktif
+        </a>
+
+    </div>
+
+    <!-- FUNGSI JAVASCRIPT PERMAINAN LOGIK -->
+    <script>
+        // 1. Pembolehubah Permainan
+        // Komputer pilih satu nombor rawak antara 1 dan 100
+        var nomborRahsia = Math.floor(Math.random() * 100) + 1; 
+        var jumlahCuba = 0;
+        var permainanTamat = false;
+
+        // 2. Fungsi Semak Tekaan (Berlaku apabila butang ditekan)
+        function semakTekaan() {
+            // Jika permainan dah tamat, butang berfungsi untuk mula semula
+            if (permainanTamat === true) {
+                mulaSemula();
+                return; // Berhenti laksanakan kod di bawah
+            }
+
+            // Ambil nombor yang ditaip oleh pemain
+            var tekaanPemain = document.getElementById("nomborTeka").value;
+            var kotakMesej = document.getElementById("paparanMesej");
+
+            // Semak adakah kotak dibiarkan kosong
+            if (tekaanPemain === "") {
+                kotakMesej.innerHTML = "Sila masukkan nombor dahulu!";
+                kotakMesej.className = "mesej-petunjuk mesej-merah";
+                return;
+            }
+
+            // Tukar teks kepada bentuk nombor sebenar
+            tekaanPemain = Number(tekaanPemain);
+            jumlahCuba++; // Tambah 1 pada rekod percubaan
+            document.getElementById("bilanganCuba").innerHTML = jumlahCuba;
+
+            // LOGIK PERBANDINGAN:
+            if (tekaanPemain === nomborRahsia) {
+                // MENANG!
+                kotakMesej.innerHTML = "🎉 TEPAT SEKALI! Nombor rahsia ialah " + nomborRahsia + ".";
+                kotakMesej.className = "mesej-petunjuk mesej-hijau";
+                
+                // Ubah butang menjadi butang 'Main Semula'
+                document.getElementById("butangUtama").innerHTML = "Main Semula";
+                document.getElementById("butangUtama").style.backgroundColor = "#28a745";
+                permainanTamat = true;
+                
+            } else if (tekaanPemain > nomborRahsia) {
+                // Tekaan terlalu besar
+                kotakMesej.innerHTML = "⬇️ Terlalu BESAR! Cuba nombor yang lebih kecil.";
+                kotakMesej.className = "mesej-petunjuk mesej-merah";
+                
+            } else if (tekaanPemain < nomborRahsia) {
+                // Tekaan terlalu kecil
+                kotakMesej.innerHTML = "⬆️ Terlalu KECIL! Cuba nombor yang lebih besar.";
+                kotakMesej.className = "mesej-petunjuk mesej-merah";
+            }
+            
+            // Kosongkan semula kotak input untuk tekaan seterusnya
+            document.getElementById("nomborTeka").value = "";
+            document.getElementById("nomborTeka").focus();
+        }
+
+        // 3. Fungsi untuk mulakan pusingan baru
+        function mulaSemula() {
+            // Pilih nombor rahsia baru
+            nomborRahsia = Math.floor(Math.random() * 100) + 1;
+            jumlahCuba = 0;
+            permainanTamat = false;
+            
+            // Reset semula paparan
+            document.getElementById("bilanganCuba").innerHTML = "0";
+            document.getElementById("paparanMesej").innerHTML = "Mula meneka untuk melihat petunjuk...";
+            document.getElementById("paparanMesej").className = "mesej-petunjuk mesej-biru";
+            document.getElementById("butangUtama").innerHTML = "Teka Sekarang!";
+            document.getElementById("butangUtama").style.backgroundColor = "#007bff";
+            document.getElementById("nomborTeka").value = "";
+        }
+    </script>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="visitor-counter">👁️ Bilangan Pelawat: 1,428</div>
+        <br>
+        Hak cipta terpelihara &copy; <span class="highlight">Kumpulan 2 2026</span>
+    </footer>
+
+</body>
+</html>

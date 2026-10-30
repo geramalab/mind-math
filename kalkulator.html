@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Pintar - Portal Matematik</title>
+    
+    <style>
+        /* Tetapan Asas & Header & Navbar (Sama seperti fail lain) */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        .header-container { display: flex; align-items: center; justify-content: center; padding: 30px; background: linear-gradient(135deg, #FFD700, #FFB300); border-bottom: 4px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .header-container img { transition: transform 0.3s; }
+        .header-container img:hover { transform: scale(1.05); }
+        .navbar { background-color: #333; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
+        .navbar a { color: white; text-decoration: none; padding: 16px 24px; font-size: 16px; font-weight: bold; transition: background 0.3s, color 0.3s; }
+        .navbar a:hover { background-color: #FFC107; color: #333; }
+        
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 250px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; border-radius: 0 0 8px 8px; overflow: hidden; max-height: 400px; overflow-y: auto; }
+        .dropdown-content a { color: #333; padding: 12px 16px; display: block; font-size: 14px; border-bottom: 1px solid #eee; font-weight: normal; }
+        .dropdown-content a:hover { background-color: #f1f1f1; padding-left: 24px; }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        .main-content { padding: 50px 20px; text-align: center; flex: 1; background-color: white; margin: 30px 200px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        @media (max-width: 900px) { .main-content { margin: 30px 20px; } }
+        
+        .footer { background-color: #222; color: #ccc; text-align: center; padding: 25px 20px; font-size: 14px; line-height: 1.6; }
+        .footer span.highlight { color: #FFC107; font-weight: bold; }
+
+        /* =========================================
+           TAMBAHAN: GAYA REKA BENTUK KALKULATOR 
+           ========================================= */
+        .kalkulator-badan {
+            background-color: #2c3e50;
+            width: 320px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .skrin-paparan {
+            width: 100%;
+            height: 60px;
+            background-color: #ecf0f1;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 28px;
+            text-align: right;
+            padding: 10px;
+            box-sizing: border-box;
+            color: #333;
+            font-weight: bold;
+        }
+        .susunan-butang {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .butang-kal {
+            background-color: #ecf0f1;
+            border: none;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .butang-kal:hover { background-color: #bdc3c7; }
+        .butang-kal:active { transform: scale(0.95); }
+        
+        .butang-operasi { background-color: #f39c12; color: white; }
+        .butang-operasi:hover { background-color: #e67e22; }
+        
+        .butang-padam { background-color: #e74c3c; color: white; grid-column: span 2; }
+        .butang-padam:hover { background-color: #c0392b; }
+        
+        .butang-sama { background-color: #27ae60; color: white; grid-column: span 2; }
+        .butang-sama:hover { background-color: #2ecc71; }
+    </style>
+</head>
+<body>
+
+    <!-- BAHAGIAN ATAS: Header -->
+    <div class="header-container">
+        <img src="logomath.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo Mind Pintar">
+        <img src="logotulis.png" style="height: 90px; width: auto;" alt="Tulisan Pintar">
+    </div>
+
+    <!-- MENU NAVIGASI -->
+    <nav class="navbar">
+        <a href="index.html">Laman Utama</a>
+        <div class="dropdown">
+            <a href="#">Matematik Tingkatan 1 ▼</a>
+            <div class="dropdown-content">
+                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
+                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="new3.2.html">Bab 3: Kuasa Dua, Punca Kuasa Dua...</a>
+                <a href="new4.2.html">Bab 4: Nisbah, Kadar dan Kadaran</a>
+                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
+                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+            </div>
+        </div>
+        <a href="interaktif 1.html">Interaktif</a>
+        <a href="hubungi.html">Hubungi Kami</a>
+    </nav>
+
+    <!-- KANDUNGAN UTAMA: KALKULATOR -->
+    <div class="main-content">
+        
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; display: inline-block;">
+            🧮 Kalkulator Pintar
+        </h2>
+        <p style="color: #555; margin-bottom: 30px;">Gunakan kalkulator ini untuk menyemak jawapan pengiraan anda!</p>
+
+        <!-- Badan Kalkulator -->
+        <div class="kalkulator-badan">
+            <!-- Skrin (Tempat nombor keluar) -->
+            <input type="text" id="skrin" class="skrin-paparan" disabled>
+            
+            <!-- Butang-butang -->
+            <div class="susunan-butang">
+                <button class="butang-kal butang-padam" onclick="padamSkrin()">PADAM (C)</button>
+                <button class="butang-kal butang-operasi" onclick="masukkanNiali('/')">&divide;</button>
+                <button class="butang-kal butang-operasi" onclick="masukkanNiali('*')">&times;</button>
+                
+                <button class="butang-kal" onclick="masukkanNiali('7')">7</button>
+                <button class="butang-kal" onclick="masukkanNiali('8')">8</button>
+                <button class="butang-kal" onclick="masukkanNiali('9')">9</button>
+                <button class="butang-kal butang-operasi" onclick="masukkanNiali('-')">-</button>
+                
+                <button class="butang-kal" onclick="masukkanNiali('4')">4</button>
+                <button class="butang-kal" onclick="masukkanNiali('5')">5</button>
+                <button class="butang-kal" onclick="masukkanNiali('6')">6</button>
+                <button class="butang-kal butang-operasi" onclick="masukkanNiali('+')">+</button>
+                
+                <button class="butang-kal" onclick="masukkanNiali('1')">1</button>
+                <button class="butang-kal" onclick="masukkanNiali('2')">2</button>
+                <button class="butang-kal" onclick="masukkanNiali('3')">3</button>
+                <button class="butang-kal" onclick="masukkanNiali('.')">.</button>
+                
+                <button class="butang-kal" onclick="masukkanNiali('0')" style="grid-column: span 2;">0</button>
+                <button class="butang-kal butang-sama" onclick="kiraJawapan()">=</button>
+            </div>
+        </div>
+
+        <!-- FUNGSI JAVASCRIPT KALKULATOR -->
+        <script>
+            // Fungsi 1: Masukkan nombor atau simbol ke skrin
+            function masukkanNiali(nilai) {
+                document.getElementById("skrin").value += nilai;
+            }
+
+            // Fungsi 2: Padam (Kosongkan) skrin
+            function padamSkrin() {
+                document.getElementById("skrin").value = "";
+            }
+
+            // Fungsi 3: Kira hasil operasi matematik
+            function kiraJawapan() {
+                var soalan = document.getElementById("skrin").value;
+                try {
+                    // eval() adalah fungsi rahsia JS untuk mengira matematik secara automatik!
+                    var jawapan = eval(soalan); 
+                    document.getElementById("skrin").value = jawapan;
+                } catch (error) {
+                    // Jika pelajar masukkan formula yang salah (contoh: 5++6)
+                    document.getElementById("skrin").value = "Ralat!";
+                }
+            }
+        </script>
+
+        <!-- Butang untuk kembali ke muka surat interaktif -->
+        <br><br>
+        <a href="interaktif.html" style="display: inline-block; padding: 10px 20px; background-color: #0056b3; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            &larr; Kembali ke Menu Interaktif
+        </a>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="visitor-counter">👁️ Bilangan Pelawat: 1,428</div>
+        <br>
+        Hak cipta terpelihara &copy; <span class="highlight">Kumpulan 2 2026</span>
+    </footer>
+
+</body>
+</html>

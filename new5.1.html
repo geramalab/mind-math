@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 5 - Portal Matematik</title>
+    
+    <style>
+        /* Tetapan Asas & Header & Navbar */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        .header-container { display: flex; align-items: center; justify-content: center; padding: 30px; background: linear-gradient(135deg, #FFD700, #FFB300); border-bottom: 4px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .header-container img { transition: transform 0.3s; }
+        .header-container img:hover { transform: scale(1.05); }
+        
+        .navbar { background-color: #333; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
+        .navbar a { color: white; text-decoration: none; padding: 16px 24px; font-size: 16px; font-weight: bold; transition: background 0.3s, color 0.3s; }
+        .navbar a:hover { background-color: #FFC107; color: #333; }
+        
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 250px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; border-radius: 0 0 8px 8px; overflow: hidden; max-height: 400px; overflow-y: auto; }
+        .dropdown-content a { color: #333; padding: 12px 16px; display: block; font-size: 14px; border-bottom: 1px solid #eee; font-weight: normal; }
+        .dropdown-content a:hover { background-color: #f1f1f1; padding-left: 24px; }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        .main-content { padding: 50px 20px; text-align: left; flex: 1; background-color: white; margin: 30px 200px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        @media (max-width: 900px) { .main-content { margin: 30px 20px; } }
+        
+        .footer { background-color: #222; color: #ccc; text-align: center; padding: 25px 20px; font-size: 14px; line-height: 1.6; }
+        .footer span.highlight { color: #FFC107; font-weight: bold; }
+        .visitor-counter { display: inline-block; background-color: #FFC107; color: #222; padding: 8px 20px; border-radius: 30px; font-size: 18px; font-weight: bold; margin-bottom: 15px; box-shadow: 0 0 10px rgba(255, 193, 7, 0.4); }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header-container">
+        <img src="LOGO MIND PINTAR.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo Mind Pintar">
+        <img src="LOGO PINTAR WORD.png" style="height: 90px; width: auto;" alt="Tulisan Pintar">
+    </div>
+
+    <!-- Menu (Telah dikemaskini sehingga Bab 5) -->
+    <nav class="navbar">
+        <a href="index.html">Laman Utama</a>
+        <div class="dropdown">
+            <a href="#">Matematik Tingkatan 1 ▼</a>
+            <div class="dropdown-content">
+                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
+                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="new3.2.html">Bab 3: Kuasa Dua, Punca Kuasa Dua...</a>
+                <a href="new4.2.html">Bab 4: Nisbah, Kadar dan Kadaran</a>
+                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
+                
+                <!-- Bab yang belum siap kekal dengan tanda # -->
+                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+                <a href="#">Bab 7: Ketaksamaan Linear</a>
+                <a href="#">Bab 8: Garis dan Sudut</a>
+                <a href="#">Bab 9: Poligon Asas</a>
+                <a href="#">Bab 10: Perimeter dan Luas</a>
+                <a href="#">Bab 11: Pengenalan Set</a>
+                <a href="#">Bab 12: Pengendalian Data</a>
+                <a href="#">Bab 13: Teorem Pythagoras</a>
+            </div>
+        </div>
+        <a href="interaktif 1.html">Interaktif</a>
+        <a href="hubungi.html">Hubungi Kami</a>
+    </nav>
+
+    <!-- KANDUNGAN UTAMA: NOTA BAB 5 -->
+    <div class="main-content">
+
+        <!-- Tajuk Utama Bab 5 -->
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; text-align: center;">
+            Bab 5: Ungkapan Algebra
+        </h2>
+        <br>
+
+        <!-- SUBTOPIK 5.1 -->
+        <h3 style="color: #0056b3;">5.1 Pemboleh Ubah (Variables)</h3>
+        <p><strong>Apakah itu Pemboleh Ubah?</strong><br>
+        Pemboleh ubah ialah kuantiti yang <strong>nilainya tidak diketahui</strong> atau boleh berubah-ubah. Kita menggunakan huruf abjad (seperti <em>x, y, a, b</em>) untuk mewakilinya.</p>
+
+        <div style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <p style="margin: 0; font-size: 16px;">
+                <strong>Situasi:</strong> Cikgu Ali membeli beberapa batang pensel.<br>
+                Oleh kerana kita <em>tidak tahu</em> berapa jumlah pensel itu, kita boleh katakan Cikgu Ali membeli <strong><em>x</em></strong> batang pensel.<br>
+                Di sini, huruf <strong><em>x</em></strong> bertindak sebagai pemboleh ubah.
+            </p>
+        </div>
+
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
+
+        <!-- SUBTOPIK 5.2 -->
+        <h3 style="color: #0056b3;">5.2 Sebutan Algebra</h3>
+        <p>Sebutan algebra terbentuk apabila <strong>nombor</strong> didarabkan dengan <strong>pemboleh ubah</strong>.</p>
+
+        <div style="background-color: #eef2f3; border-left: 5px solid #007bff; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0;">
+            <p style="margin: 0; font-size: 18px;">
+                Contoh: <strong>3y</strong><br><br>
+                Nombor <strong>3</strong> dipanggil <em>Pekali</em>.<br>
+                Huruf <strong>y</strong> dipanggil <em>Pemboleh Ubah</em>.<br>
+                Ini bermaksud 3 didarab dengan y (3 &times; y = 3y).
+            </p>
+        </div>
+
+        <p><strong>Sebutan Serupa dan Tidak Serupa:</strong><br>
+        Dua sebutan dianggap "serupa" jika mereka mempunyai <strong>huruf yang sama</strong> dan kuasa yang sama.</p>
+        
+        <ul style="color: #444; line-height: 1.6;">
+            <li><strong>Sebutan Serupa:</strong> 2x dan 5x (kedua-duanya menggunakan huruf x)</li>
+            <li><strong>Sebutan Tidak Serupa:</strong> 4a dan 4b (huruf berbeza)</li>
+        </ul>
+
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
+
+        <!-- SUBTOPIK 5.3 -->
+        <h3 style="color: #0056b3;">5.3 Ungkapan Algebra</h3>
+        <p>Ungkapan algebra terbentuk apabila kita menyambungkan dua atau lebih sebutan algebra menggunakan operasi <strong>tambah (+)</strong> atau <strong>tolak (-)</strong>.</p>
+
+        <div style="background-color: #f8f9fa; border: 2px dashed #28a745; padding: 20px; border-radius: 8px; margin: 15px 0; text-align: center;">
+            <p style="margin: 0; font-size: 20px; color: #333; font-weight: bold;">
+                Contoh Ungkapan: <br> 5x + 2y - 3
+            </p>
+            <p style="margin: 10px 0 0 0; color: #555;">
+                Ungkapan di atas mempunyai <strong>tiga sebutan</strong> iaitu: 5x, 2y, dan -3.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="visitor-counter">👁️ Bilangan Pelawat: 1,428</div>
+        <br>
+        Hak cipta terpelihara &copy; <span class="highlight">Kumpulan 2 2026</span>
+    </footer>
+
+</body>
+</html>

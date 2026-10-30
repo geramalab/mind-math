@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 3 - Pintar Matematik</title> <!-- Boleh tukar mengikut bab -->
+    
+    <style>
+        /* Gaya asas dikekalkan supaya seragam dengan muka depan */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #FFD700, #FFB300); 
+            border-bottom: 4px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0; 
+            z-index: 100;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #FFC107;
+            color: #333;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 0 0 8px 8px;
+            max-height: 400px;
+            overflow-y: auto; 
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            display: block;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            font-weight: normal;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            padding-left: 24px; 
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* GAYA ISI KANDUNGAN UNTUK NOTA IMEJ */
+        .main-content {
+            padding: 40px 20px;
+            text-align: center;
+            flex: 1; 
+            background-color: white;
+            margin: 30px 200px; 
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        @media (max-width: 900px) {
+            .main-content { margin: 30px 20px; }
+        }
+        
+        /* GAYA KHAS UNTUK IMEJ NOTA SUPAYA CANTIK DAN KEMAS */
+        .nota-imej {
+            width: 100%;
+            max-width: 900px; /* Saiz maksimum imej */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            margin-top: 20px;
+        }
+
+        .footer {
+            background-color: #222;
+            color: #ccc;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer span.highlight { color: #FFC107; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER (Kekal Sama) -->
+    <div class="header-container">
+        <img src="logomath.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo">
+        <img src="logotulis.png" style="height: 90px; width: auto;" alt="Tulisan Pintar">
+    </div>
+
+<!-- BAHAGIAN MENU NAVIGASI (Navbar) -->
+    <nav class="navbar">
+        <a href="index.html">Laman Utama</a>
+        
+        <div class="dropdown">
+            <a href="#">Matematik Tingkatan 1 ▼</a>
+            <div class="dropdown-content">
+                <!-- Pautan ke muka surat setiap bab yang telah disiapkan -->
+                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
+                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="new3.2.html">Bab 3: Kuasa Dua, Punca Kuasa Dua...</a>
+                
+                <!-- Bab yang belum buat, biarkan tanda # -->
+                <a href="new4.2.html">Bab 4: Nisbah, Kadar dan Kadaran</a>
+                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
+                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+                <a href="#">Bab 7: Ketaksamaan Linear</a>
+                <a href="#">Bab 8: Garis dan Sudut</a>
+                <a href="#">Bab 9: Poligon Asas</a>
+                <a href="#">Bab 10: Perimeter dan Luas</a>
+                <a href="#">Bab 11: Pengenalan Set</a>
+                <a href="#">Bab 12: Pengendalian Data</a>
+                <a href="#">Bab 13: Teorem Pythagoras</a>
+            </div>
+        </div>
+
+        <a href="interaktif.html">Interaktif</a>
+        <a href="hubungi.html">Hubungi Kami</a>
+    </nav>
+
+    <!-- ISI KANDUNGAN: NOTA BAB 3 -->
+<!-- BAHAGIAN KANDUNGAN UTAMA (Isi Web) -->
+    <div class="main-content" style="text-align: left; padding: 40px 50px;">
+
+        <!-- Tajuk Utama Bab 3 -->
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; text-align: center;">
+            Bab 3: Kuasa Dua, Punca Kuasa Dua, Kuasa Tiga & Punca Kuasa Tiga
+        </h2>
+        <br>
+
+        <!-- ==========================================
+             SUBTOPIK 3.1: KUASA DUA & PUNCA KUASA DUA
+             ========================================== -->
+        <h3 style="color: #0056b3;">3.1 Kuasa Dua dan Punca Kuasa Dua</h3>
+        
+        <p><strong>Apakah itu Kuasa Dua?</strong><br>
+        Kuasa dua bagi suatu nombor ialah hasil darab nombor tersebut dengan dirinya sendiri.</p>
+
+        <!-- Kotak Penerangan Kuasa Dua -->
+        <div style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <p style="margin: 0; font-size: 16px;">
+                Contoh: 4 didarab dengan 4. <br><br>
+                Dalam matematik, kita tulis sebagai <strong>4<sup>2</sup></strong> (dibaca: empat kuasa dua).<br>
+                Pengiraan: 4 &times; 4 = <strong>16</strong>.
+            </p>
+        </div>
+
+        <p><strong>Kuasa Dua Sempurna</strong><br>
+        Nombor yang terhasil daripada kuasa dua suatu nombor bulat dipanggil <em>Kuasa Dua Sempurna</em>. <br>
+        Contohnya: <strong>1, 4, 9, 16, 25, 36, 49...</strong> dan seterusnya.</p>
+
+        <p><strong>Apakah itu Punca Kuasa Dua?</strong><br>
+        Punca kuasa dua adalah <strong>operasi songsang (terbalik)</strong> bagi kuasa dua. Simbol bagi punca kuasa dua ialah <strong>&radic;</strong>.</p>
+
+        <!-- Kotak Penerangan Punca Kuasa Dua -->
+        <div style="background-color: #eef2f3; border-left: 5px solid #FFC107; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0;">
+            <p style="margin: 0; font-size: 16px;">
+                Jika 5<sup>2</sup> = 25,<br>
+                Maka, punca kuasa dua bagi 25 ialah 5.<br>
+                Ditulis sebagai: <strong>&radic;25 = 5</strong>
+            </p>
+        </div>
+
+        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
+
+        <!-- ==========================================
+             SUBTOPIK 3.2: KUASA TIGA & PUNCA KUASA TIGA
+             ========================================== -->
+        <h3 style="color: #0056b3;">3.2 Kuasa Tiga dan Punca Kuasa Tiga</h3>
+        
+        <p><strong>Apakah itu Kuasa Tiga?</strong><br>
+        Kuasa tiga bagi suatu nombor ialah hasil darab nombor tersebut dengan dirinya sendiri secara berturut-turut sebanyak dua kali (nombor itu didarab 3 kali).</p>
+
+        <!-- Kotak Penerangan Kuasa Tiga -->
+        <div style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <p style="margin: 0; font-size: 16px;">
+                Contoh: 2 didarab dengan dirinya sendiri sebanyak 3 kali. <br><br>
+                Kita tulis sebagai <strong>2<sup>3</sup></strong> (dibaca: dua kuasa tiga).<br>
+                Pengiraan: 2 &times; 2 &times; 2 = <strong>8</strong>.
+            </p>
+        </div>
+
+        <p><strong>Apakah itu Punca Kuasa Tiga?</strong><br>
+        Sama seperti tadi, ia adalah operasi songsang bagi kuasa tiga. Simbolnya mempunyai nombor 3 kecil di depan: <strong>&#8731;</strong>.</p>
+
+        <!-- Kotak Penerangan Punca Kuasa Tiga -->
+        <div style="background-color: #eef2f3; border-left: 5px solid #FFC107; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0;">
+            <p style="margin: 0; font-size: 16px;">
+                Jika 3<sup>3</sup> = 27 (kerana 3 &times; 3 &times; 3 = 27),<br>
+                Maka, punca kuasa tiga bagi 27 ialah 3.<br>
+                Ditulis sebagai: <strong>&#8731;27 = 3</strong>
+            </p>
+        </div>
+
+        <!-- Jadual Perbandingan Kuasa -->
+        <h4 style="color: #2c3e50; margin-top: 30px;">Jadual Ringkasan</h4>
+        <table style="width: 100%; max-width: 500px; border-collapse: collapse; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 10px; background-color: #2c3e50; color: white;">Nombor (x)</th>
+                <th style="border: 1px solid #ddd; padding: 10px; background-color: #FFC107; color: #333;">Kuasa Dua (x<sup>2</sup>)</th>
+                <th style="border: 1px solid #ddd; padding: 10px; background-color: #e74c3c; color: white;">Kuasa Tiga (x<sup>3</sup>)</th>
+            </tr>
+            <tr style="text-align: center;">
+                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+            </tr>
+            <tr style="text-align: center;">
+                <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">8</td>
+            </tr>
+            <tr style="text-align: center;">
+                <td style="border: 1px solid #ddd; padding: 8px;">3</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">9</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">27</td>
+            </tr>
+            <tr style="text-align: center;">
+                <td style="border: 1px solid #ddd; padding: 8px;">4</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">16</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">64</td>
+            </tr>
+        </table>
+
+            <!-- ==========================================
+             KOTAK UJI MINDA INTERAKTIF (Latihan Bab 3)
+             ========================================== -->
+        
+        <br><br>
+        <h3 style="color: #155724; text-align: center; border-top: 2px solid #28a745; padding-top: 20px;">
+            📝 Latihan Pengukuhan Bab 3
+        </h3>
+        <p style="text-align: center; color: #555;">Sila baca soalan, fikirkan jawapan, dan klik butang semak.</p>
+
+        <!-- KOTAK SOALAN 1 -->
+        <div style="background-color: #f8f9fa; border: 1px solid #ced4da; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 20px;">
+            
+            <p style="font-weight: bold; color: #333; margin-top: 0; font-size: 16px;">
+                Soalan 1: Berapakah nilai bagi 7 kuasa dua (7<sup>2</sup>)?
+            </p>
+            
+            <ul style="list-style-type: none; padding-left: 0; margin-bottom: 20px; color: #444;">
+                <li style="margin-bottom: 8px;">A) 14</li>
+                <li style="margin-bottom: 8px;">B) 21</li>
+                <li style="margin-bottom: 8px;">C) 49</li>
+                <li style="margin-bottom: 8px;">D) 77</li>
+            </ul>
+
+            <!-- Butang Semak Jawapan -->
+            <details>
+                <summary style="display: inline-block; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; outline: none;">
+                    👀 Semak Jawapan
+                </summary>
+                <div style="margin-top: 15px; padding: 15px; background-color: #d4edda; border-left: 4px solid #28a745; border-radius: 4px;">
+                    <span style="color: #155724; font-weight: bold; font-size: 18px;">Jawapan: C (49)</span>
+                    <p style="margin: 10px 0 0 0; color: #155724;">
+                        <strong>Penerangan:</strong> Kuasa dua bermaksud nombor itu didarab dengan dirinya sendiri. Jadi, 7 &times; 7 = 49. (Bukan 7 &times; 2 ya!).
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- KOTAK SOALAN 2 -->
+        <div style="background-color: #f8f9fa; border: 1px solid #ced4da; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 20px;">
+            
+            <p style="font-weight: bold; color: #333; margin-top: 0; font-size: 16px;">
+                Soalan 2: Antara berikut, yang manakah BUKAN Kuasa Dua Sempurna?
+            </p>
+            
+            <ul style="list-style-type: none; padding-left: 0; margin-bottom: 20px; color: #444;">
+                <li style="margin-bottom: 8px;">A) 9</li>
+                <li style="margin-bottom: 8px;">B) 16</li>
+                <li style="margin-bottom: 8px;">C) 20</li>
+                <li style="margin-bottom: 8px;">D) 25</li>
+            </ul>
+
+            <details>
+                <summary style="display: inline-block; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; outline: none;">
+                    👀 Semak Jawapan
+                </summary>
+                <div style="margin-top: 15px; padding: 15px; background-color: #d4edda; border-left: 4px solid #28a745; border-radius: 4px;">
+                    <span style="color: #155724; font-weight: bold; font-size: 18px;">Jawapan: C (20)</span>
+                    <p style="margin: 10px 0 0 0; color: #155724;">
+                        <strong>Penerangan:</strong> 9 ialah (3&times;3), 16 ialah (4&times;4), dan 25 ialah (5&times;5). Tiada nombor bulat yang didarab dengan dirinya sendiri akan menghasilkan 20.
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- KOTAK SOALAN 3 -->
+        <div style="background-color: #f8f9fa; border: 1px solid #ced4da; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 20px;">
+            
+            <p style="font-weight: bold; color: #333; margin-top: 0; font-size: 16px;">
+                Soalan 3: Apakah nilai bagi punca kuasa tiga bagi 64 (&#8731;64)?
+            </p>
+            
+            <ul style="list-style-type: none; padding-left: 0; margin-bottom: 20px; color: #444;">
+                <li style="margin-bottom: 8px;">A) 4</li>
+                <li style="margin-bottom: 8px;">B) 8</li>
+                <li style="margin-bottom: 8px;">C) 16</li>
+                <li style="margin-bottom: 8px;">D) 32</li>
+            </ul>
+
+            <details>
+                <summary style="display: inline-block; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; outline: none;">
+                    👀 Semak Jawapan
+                </summary>
+                <div style="margin-top: 15px; padding: 15px; background-color: #d4edda; border-left: 4px solid #28a745; border-radius: 4px;">
+                    <span style="color: #155724; font-weight: bold; font-size: 18px;">Jawapan: A (4)</span>
+                    <p style="margin: 10px 0 0 0; color: #155724;">
+                        <strong>Penerangan:</strong> Punca kuasa tiga mencari nombor apa yang didarab 3 kali menghasilkan 64. (4 &times; 4 &times; 4 = 64). Jika anda jawab 8, itu adalah punca kuasa <em>dua</em> bagi 64.
+                    </p>
+                </div>
+            </details>
+        </div>
+
+    <!-- INI ADALAH PENUTUP KOTAK PUTIH (Jangan padam) --> 
+    </div>
+
+    <!-- FOOTER (Kekal Sama) -->
+    <footer class="footer">
+        Hak cipta terpelihara &copy; <span class="highlight">Kumpulan 2 2026</span><br>
+        <span style="font-size: 12px; color: #777;">Dikemaskini : gramalab</span>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktif - Portal Matematik</title>
+    
+    <style>
+        /* Tetapan Asas & Header & Navbar */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        .header-container { display: flex; align-items: center; justify-content: center; padding: 30px; background: linear-gradient(135deg, #FFD700, #FFB300); border-bottom: 4px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .header-container img { transition: transform 0.3s; }
+        .header-container img:hover { transform: scale(1.05); }
+        
+        .navbar { background-color: #333; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
+        .navbar a { color: white; text-decoration: none; padding: 16px 24px; font-size: 16px; font-weight: bold; transition: background 0.3s, color 0.3s; }
+        .navbar a:hover { background-color: #FFC107; color: #333; }
+        
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 250px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; border-radius: 0 0 8px 8px; overflow: hidden; max-height: 400px; overflow-y: auto; }
+        .dropdown-content a { color: #333; padding: 12px 16px; display: block; font-size: 14px; border-bottom: 1px solid #eee; font-weight: normal; }
+        .dropdown-content a:hover { background-color: #f1f1f1; padding-left: 24px; }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        .main-content { padding: 50px 20px; text-align: center; flex: 1; background-color: white; margin: 30px 200px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        @media (max-width: 900px) { .main-content { margin: 30px 20px; } }
+        
+        .footer { background-color: #222; color: #ccc; text-align: center; padding: 25px 20px; font-size: 14px; line-height: 1.6; }
+        .footer span.highlight { color: #FFC107; font-weight: bold; }
+        .visitor-counter { display: inline-block; background-color: #FFC107; color: #222; padding: 8px 20px; border-radius: 30px; font-size: 18px; font-weight: bold; margin-bottom: 15px; box-shadow: 0 0 10px rgba(255, 193, 7, 0.4); }
+
+        /* GAYA KAD INTERAKTIF (Untuk efek melompat) */
+        .kad-interaktif {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .kad-interaktif:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header-container">
+        <img src="logomath.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo Mind Pintar">
+        <img src="logotulis.png" style="height: 90px; width: auto;" alt="Tulisan Pintar">
+    </div>
+
+    <!-- Menu -->
+    <nav class="navbar">
+        <a href="index.html">Laman Utama</a>
+        <div class="dropdown">
+            <a href="#">Matematik Tingkatan 1 ▼</a>
+            <div class="dropdown-content">
+                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
+                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="new3.2.html">Bab 3: Kuasa Dua, Punca Kuasa Dua...</a>
+                <a href="new4.1.html">Bab 4: Nisbah, Kadar dan Kadaran</a> 
+                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
+                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+                <a href="#">Bab 7: Ketaksamaan Linear</a>
+            </div>
+        </div>
+        <a href="interaktif 1.html">Interaktif</a>
+        <a href="hubungi.html">Hubungi Kami</a>
+    </nav>
+
+    <!-- KANDUNGAN UTAMA (Ruangan Interaktif) -->
+    <div class="main-content">
+
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; display: inline-block;">
+            🎮 Ruangan Interaktif
+        </h2>
+        <p style="color: #555; margin-bottom: 30px;">Teroka dunia matematik dengan cara yang lebih menyeronokkan!</p>
+
+        <!-- BAHAGIAN 1: KAD MENU BERANIMASI -->
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 50px;">
+            
+            <!-- Kad 1: Kalkulator -->
+            <a href="kalkulator.html" style="text-decoration: none; color: inherit;">
+                <div class="kad-interaktif" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); width: 200px; padding: 30px 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); color: white;">
+                    <h1 style="margin: 0; font-size: 40px;">🧮</h1>
+                    <h3 style="margin: 10px 0 0 0;">Kalkulator Pintar</h3>
+                </div>
+            </a>
+
+            <!-- Kad 2: Kuiz Cabaran -->
+            <a href="kuiz13.html" style="text-decoration: none; color: inherit;">
+                <div class="kad-interaktif" style="background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%); width: 200px; padding: 30px 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); color: white;">
+                    <h1 style="margin: 0; font-size: 40px;">🎯</h1>
+                    <h3 style="margin: 10px 0 0 0;">Kuiz Cabaran</h3>
+                </div>
+            </a>
+
+            <!-- Kad 3: Permainan Logik -->
+            <a href="permainan.html" style="text-decoration: none; color: inherit;">
+                <div class="kad-interaktif" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); width: 200px; padding: 30px 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); color: white;">
+                    <h1 style="margin: 0; font-size: 40px;">🧩</h1>
+                    <h3 style="margin: 10px 0 0 0;">Permainan Logik</h3>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- BAHAGIAN 2: BUTANG JAVASCRIPT -->
+        <div style="background-color: #f8f9fa; border: 2px dashed #007bff; border-radius: 15px; padding: 30px; max-width: 600px; margin: 0 auto;">
+            <h3 style="color: #0056b3; margin-top: 0;">Tahukah Anda?</h3>
+            <p id="tempatFakta" style="font-size: 18px; font-weight: bold; color: #333; min-height: 60px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                Tekan butang di bawah untuk membongkar rahsia Matematik!
+            </p>
+            <button onclick="janaFakta()" style="background-color: #FFC107; color: #333; font-weight: bold; border: none; padding: 12px 25px; font-size: 16px; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                ✨ Jana Fakta Menarik
+            </button>
+        </div>
+
+        <script>
+            function janaFakta() {
+                var senaraiFakta = [
+                    "Sifar (0) adalah satu-satunya nombor yang tidak boleh ditulis menggunakan Angka Roman!",
+                    "Simbol tambah (+) dan tolak (-) mula digunakan secara meluas pada tahun 1489.",
+                    "Dalam bahasa Inggeris, perkataan 'Forty' adalah satu-satunya nombor yang dieja mengikut susunan abjad (F-O-R-T-Y).",
+                    "Nilai Pi (π) tidak akan pernah berakhir dan tidak mempunyai corak yang berulang.",
+                    "Nombor ganjil dalam bahasa Inggeris (seperti one, three, five) sentiasa mempunyai huruf 'e' dalam ejaannya!",
+                    "Nombor 2 adalah satu-satunya nombor genap yang juga merupakan nombor perdana."
+                ];
+                var nomborRawak = Math.floor(Math.random() * senaraiFakta.length);
+                document.getElementById("tempatFakta").innerHTML = senaraiFakta[nomborRawak];
+            }
+        </script>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="visitor-counter">👁️ Bilangan Pelawat: 1,428</div>
+        <br>
+        Hak cipta terpelihara &copy; <span class="highlight">Kumpulan 2 2026</span>
+    </footer>
+
+</body>
+</html>
