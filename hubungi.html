@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hubungi Kami - Portal Matematik</title>
-    
     <style>
         /* Tetapan Asas & Header & Navbar */
         body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
@@ -17,203 +16,128 @@
         .navbar a:hover { background-color: #FFC107; color: #333; }
         
         .dropdown { position: relative; display: inline-block; }
-        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 250px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; border-radius: 0 0 8px 8px; overflow: hidden; max-height: 400px; overflow-y: auto; }
-        .dropdown-content a { color: #333; padding: 12px 16px; display: block; font-size: 14px; border-bottom: 1px solid #eee; font-weight: normal; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 250px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; border-radius: 0 0 8px 8px; overflow: hidden; max-height: 400px; }
+        .dropdown-content a { color: #333; padding: 12px 16px; display: block; font-size: 14px; border-bottom: 1px solid #eee; }
         .dropdown-content a:hover { background-color: #f1f1f1; padding-left: 24px; }
         .dropdown:hover .dropdown-content { display: block; }
         
-        .main-content { padding: 50px 20px; flex: 1; background-color: white; margin: 30px 200px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        
-        .footer { background-color: #222; color: #ccc; text-align: center; padding: 25px 20px; font-size: 14px; line-height: 1.6; }
-        .footer span.highlight { color: #FFC107; font-weight: bold; }
+        /* BORANG HUBUNGI */
+        .main-content { padding: 50px 20px; text-align: center; flex: 1; background-color: white; margin: 30px auto; width: 90%; max-width: 600px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .input-box { width: 100%; padding: 12px; margin: 10px 0 20px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
+        .butang-hantar { background-color: #007bff; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; }
+        .butang-hantar:hover { background-color: #0056b3; }
 
-        /* =========================================
-           TAMBAHAN: GAYA REKA BENTUK HUBUNGI KAMI
-           ========================================= */
-        .kotak-hubungi {
-            display: flex;
-            flex-wrap: wrap; /* Susun ke bawah jika skrin kecil */
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .maklumat-kumpulan {
-            flex: 1;
-            min-width: 300px;
-            background-color: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            border-left: 5px solid #FFC107;
-        }
-        .borang-kenalan {
-            flex: 1;
-            min-width: 300px;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+        /* KOTAK POPUP BERJAYA */
+        .modal-latar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-kandungan { background-color: white; padding: 40px; border-radius: 15px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         
-        /* Gaya Input Borang */
-        .kumpulan-input {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        .kumpulan-input label {
-            display: block;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-        }
-        .input-teks {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 16px;
-            box-sizing: border-box; /* Pastikan input tak terkeluar kotak */
-            transition: border-color 0.3s;
-        }
-        .input-teks:focus {
-            border-color: #007bff;
-            outline: none;
-            box-shadow: 0 0 5px rgba(0,123,255,0.3);
-        }
-        
-        .butang-hantar {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.3s;
-        }
-        .butang-hantar:hover {
-            background-color: #0056b3;
-        }
-
-        /* Skrin Telefon */
-        @media (max-width: 900px) { 
-            .main-content { margin: 30px 20px; padding: 30px 20px; }
-            .kotak-hubungi { flex-direction: column; }
-        }
+        .footer { background-color: #222; color: #ccc; text-align: center; padding: 25px 20px; font-size: 14px; margin-top: auto; }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <div class="header-container">
-        <img src="logomath.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo Mind Pintar">
-        <img src="logotulis.png" style="height: 90px; width: auto;" alt="Tulisan Pintar">
+        <img src="LOGO MIND PINTAR.png" style="height: 150px; width: auto; margin-right: 20px;" alt="Logo">
+        <img src="LOGO PINTAR WORD.png" style="height: 90px; width: auto;" alt="Pintar">
     </div>
-
-    <!-- Menu -->
+    
     <nav class="navbar">
         <a href="index.html">Laman Utama</a>
         <div class="dropdown">
             <a href="#">Matematik Tingkatan 1 ▼</a>
             <div class="dropdown-content">
-                <a href="new1.6.html">Bab 1: Nombor Nisbah</a>
-                <a href="new2.3.html">Bab 2: Faktor dan Gandaan</a>
-                <a href="new3.3.html">Bab 3: Kuasa Dua, Punca Kuasa Dua...</a>
-                <a href="new4.2.html">Bab 4: Nisbah, Kadar dan Kadaran</a>
-                <a href="new5.1.html">Bab 5: Ungkapan Algebra</a>
-                <a href="new6.1.html">Bab 6: Persamaan Linear</a>
+                <a href="bab1.html">Bab 1: Nombor Nisbah</a>
+                <a href="bab2.html">Bab 2: Faktor dan Gandaan</a>
+                <a href="bab3.html">Bab 3: Kuasa Dua...</a>
+                <a href="bab4.html">Bab 4: Nisbah...</a>
+                <a href="bab5.html">Bab 5: Ungkapan Algebra</a>
+                <a href="bab6.html">Bab 6: Persamaan Linear</a>
             </div>
         </div>
-        <a href="interaktif 1.html">Interaktif</a>
+        <a href="interaktif.html">Interaktif</a>
         <a href="hubungi.html">Hubungi Kami</a>
     </nav>
 
-    <!-- KANDUNGAN UTAMA: HUBUNGI KAMI -->
     <div class="main-content">
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; display: inline-block;">
+            📧 Hubungi Cikgu
+        </h2>
+        <p style="color: #555; margin-bottom: 20px;">Ada soalan atau cadangan? Hantar mesej terus ke emel cikgu di bawah.</p>
         
-        <div style="text-align: center;">
-            <h2 style="color: #2c3e50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; display: inline-block;">
-                📞 Hubungi Kami
-            </h2>
-            <p style="color: #555;">Ada sebarang soalan tentang modul matematik? Kami sedia membantu!</p>
-        </div>
-
-        <div class="kotak-hubungi">
+        <form id="borangHubungi">
+            <input type="text" id="namaPemanggil" class="input-box" placeholder="Nama Anda (Cth: Qadreya)" required>
+            <input type="email" id="emelPemanggil" class="input-box" placeholder="Emel Anda (Cth: pelajar@gmail.com)" required>
+            <textarea id="mesejPemanggil" class="input-box" rows="5" placeholder="Tulis mesej atau soalan anda di sini..." required></textarea>
             
-            <!-- BAHAGIAN KIRI: Maklumat Kumpulan -->
-            <div class="maklumat-kumpulan">
-                <h3 style="color: #0056b3; margin-top: 0;">Maklumat Pasukan</h3>
-                <p>Projek inovasi Mind Math ini dibawakan khas oleh <strong>Kumpulan 2 (2026)</strong> untuk membantu pelajar Tingkatan 1 menguasai Matematik KSSM dengan lebih mudah.</p>
-                
-                <hr style="border: 0; border-top: 1px dashed #ccc; margin: 20px 0;">
-                
-                <p style="font-size: 18px; margin: 10px 0;">📍 <strong>Lokasi:</strong><br>
-                <span style="font-size: 16px; color: #555;">Kuching, Sarawak, Malaysia</span></p>
-                
-                <p style="font-size: 18px; margin: 10px 0;">📧 <strong>Emel Sokongan:</strong><br>
-                <span style="font-size: 16px; color: #555;">admin@mindmath.com</span></p>
-                
-                <p style="font-size: 18px; margin: 10px 0;">📱 <strong>Media Sosial:</strong><br>
-                <span style="font-size: 16px; color: #555;">@MindMath (YouTube & Instagram)</span></p>
-            </div>
+            <button type="button" class="butang-hantar" onclick="hantarMesej()">Hantar Mesej 🚀</button>
+        </form>
+    </div>
 
-            <!-- BAHAGIAN KANAN: Borang Maklum Balas -->
-            <div class="borang-kenalan">
-                <h3 style="color: #333; margin-top: 0;">Tinggalkan Pesanan Anda</h3>
-                
-                <form id="borangHubungi">
-                    
-                    <div class="kumpulan-input">
-                        <label for="namaPemanggil">Nama Penuh:</label>
-                        <input type="text" id="namaPemanggil" class="input-teks" placeholder="Cth: Ahmad bin Ali" required>
-                    </div>
-                    
-                    <div class="kumpulan-input">
-                        <label for="emelPemanggil">Alamat Emel:</label>
-                        <input type="email" id="emelPemanggil" class="input-teks" placeholder="Cth: ahmad@emel.com" required>
-                    </div>
-                    
-                    <div class="kumpulan-input">
-                        <label for="mesejPemanggil">Mesej / Soalan:</label>
-                        <textarea id="mesejPemanggil" class="input-teks" rows="5" placeholder="Taip soalan atau cadangan anda di sini..." required></textarea>
-                    </div>
-                    
-                    <button type="button" class="butang-hantar" onclick="hantarMesej()">Hantar Mesej</button>
-                    
-                </form>
-            </div>
-            
+    <!-- POPUP MESEJ BERJAYA -->
+    <div class="modal-latar" id="popupBerjaya">
+        <div class="modal-kandungan">
+            <h1 style="font-size: 60px; margin: 0;">✅</h1>
+            <h2 style="color: #28a745;">Mesej Dihantar!</h2>
+            <p id="teksPopup" style="color: #555;">Mesej anda telah masuk ke dalam emel cikgu.</p>
+            <button onclick="tutupPopup()" style="background-color: #333; color: white; padding: 10px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px;">Tutup</button>
         </div>
     </div>
 
-    <!-- FUNGSI JAVASCRIPT BORANG -->
+    <div class="footer">
+        &copy; 2026 Portal PINTAR Matematik. Dibangunkan oleh Kumpulan 2.
+    </div>
+
     <script>
         function hantarMesej() {
-            // Ambil data dari kotak teks
             var nama = document.getElementById("namaPemanggil").value;
             var emel = document.getElementById("emelPemanggil").value;
             var mesej = document.getElementById("mesejPemanggil").value;
 
-            // Semak jika ada kotak yang kosong
             if(nama === "" || emel === "" || mesej === "") {
                 alert("Sila isi semua maklumat (Nama, Emel dan Mesej) sebelum menghantar!");
-            } else {
-                // Tunjuk popup ucapan terima kasih
-                alert("Terima kasih " + nama + "! Mesej anda telah dihantar. Pasukan kami akan membalas ke emel " + emel + " secepat mungkin.");
-                
-                // Kosongkan semula borang
-                document.getElementById("borangHubungi").reset();
+                return;
             }
+
+            var butang = document.querySelector(".butang-hantar");
+            butang.innerHTML = "Sedang Menghantar... ⏳";
+            butang.style.backgroundColor = "#6c757d"; 
+
+            // ==========================================
+            // MAGIS FORMSUBMIT (HANTAR KE EMEL SEBENAR)
+            // TUKAR 'emelanda@gmail.com' KE EMEL SEBENAR ANDA
+            // ==========================================
+            fetch("[https://formsubmit.co/ajax/alfatehmd2013@gmail.com](https://formsubmit.co/ajax/cikgufatimah@gmail.com)", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    Nama_Pelajar: nama,
+                    Emel_Pelajar: emel,
+                    Mesej: mesej
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                butang.innerHTML = "Hantar Mesej 🚀";
+                butang.style.backgroundColor = "#007bff";
+                
+                document.getElementById("teksPopup").innerHTML = "Terima kasih <strong>" + nama + "</strong>! Mesej anda telah dihantar ke emel cikgu.";
+                document.getElementById("popupBerjaya").style.display = "flex";
+                
+                document.getElementById("borangHubungi").reset();
+            })
+            .catch(error => {
+                alert("Maaf, mesej gagal dihantar. Sila semak sambungan internet anda.");
+                butang.innerHTML = "Hantar Mesej 🚀";
+                butang.style.backgroundColor = "#007bff";
+            });
+        }
+
+        function tutupPopup() {
+            document.getElementById("popupBerjaya").style.display = "none";
         }
     </script>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="visitor-counter">👁️ Bilangan Pelawat: 1,428</div>
-        <br>
-        Hak cipta terpelihara &copy; <span class="highlight">Kumpulan 2 2026</span>
-    </footer>
-
 </body>
 </html>
