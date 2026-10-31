@@ -84,6 +84,10 @@
             .kawalan-mobile { display: block; }
         }
     </style> <!-- Ini adalah penutup ruangan style -->
+
+<!-- Skrip Antena Multiplayer PeerJS -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+
 </head>
 
 <body>
@@ -123,6 +127,19 @@
             <button class="butang-bab b4" onclick="tanyaNama(4)">📕 Bab 4: Nisbah & Kadar</button><br>
             <button class="butang-bab b5" onclick="tanyaNama(5)">📓 Bab 5: Ungkapan Algebra</button>
             <button class="butang-bab b6" onclick="tanyaNama(6)">📔 Bab 6: Persamaan Linear</button>
+
+<!-- KOTAK MULTIPLAYER P2P -->
+        <div id="kotakMultiplayer" style="background: #e3f2fd; padding: 20px; border-radius: 12px; margin-top: 20px; border: 2px solid #90caf9; max-width: 400px; margin-left: auto; margin-right: auto;">
+            <h3 style="margin-top: 0; color: #1565c0;">🤝 Main Berdua (Multiplayer)</h3>
+            <p style="font-size: 14px;">ID Bilik Anda: <br><b id="myRoomId" style="color: red; font-size: 18px; letter-spacing: 1px;">Mencari isyarat...</b></p>
+            
+            <p style="font-size: 12px; color: #555;">Berikan ID di atas kepada kawan, ATAU masukkan ID kawan di bawah:</p>
+            <input type="text" id="kawanRoomId" placeholder="Taip ID kawan di sini..." style="padding: 8px; width: 60%; border-radius: 5px; border: 1px solid #ccc;">
+            <button onclick="sertaiBilikKawan()" style="padding: 8px 15px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Sertai</button>
+            
+            <p id="statusMultiplayer" style="color: green; font-weight: bold; margin-bottom: 0; margin-top: 15px;"></p>
+        </div>
+
         </div>
 
         <div id="zonPeta">
@@ -579,7 +596,7 @@ function tamatMenang() {
             if (!rekodLama || saatBerlalu < parseInt(rekodLama)) {
                 // Jika tiada rekod lama ATAU masa sekarang lebih pantas (kurang saat)
                 localStorage.setItem(namaMemori, saatBerlalu);
-                mesejRekod = "🎉 TAHNIAH! REKOD BARU DICIAPTA!";
+                mesejRekod = "🎉 TAHNIAH! REKOD BARU DICIPTA!";
             } else {
                 // Jika rekod lama lebih pantas, tunjukkan masa rekod lama
                 var minitLama = Math.floor(rekodLama / 60);
@@ -639,6 +656,75 @@ function tamatMenang() {
             if(arah === 'kanan') kekunciDitekan.kanan = false;
         }
         
+
+// ==========================================
+        // ENJIN MULTIPLAYER PEERJS (P2P)
+        // ==========================================
+        var peer = new Peer(); // Menghidupkan antena
+        var sambunganKawan = null;
+
+        // 1. Apabila antena bersedia, paparkan ID rawak kita di skrin
+        peer.on('open', function(id) {
+            document.getElementById("myRoomId").innerText = id;
+        });
+
+        // 2. Jika ada kawan berjaya bersambung ke ID kita (Kita = Tuan Rumah)
+        peer.on('connection', function(conn) {
+            sambunganKawan = conn;
+            document.getElementById("statusMultiplayer").innerText = "✅ Kawan berjaya masuk! Jom Mula!";
+            terimaDataKawan();
+        });
+
+        // 3. Fungsi apabila kita tekan butang "Sertai" (Kita = Tetamu)
+        function sertaiBilikKawan() {
+            var idKawan = document.getElementById("kawanRoomId").value;
+            if(idKawan.trim() === "") return alert("Sila masukkan ID kawan!");
+            
+            document.getElementById("statusMultiplayer").innerText = "Menyambung...";
+            sambunganKawan = peer.connect(idKawan);
+            
+            sambunganKawan.on('open', function() {
+                document.getElementById("statusMultiplayer").innerText = "✅ Berjaya masuk bilik kawan! Jom Mula!";
+                terimaDataKawan();
+            });
+        }
+
+        // 4. Fungsi memproses pergerakan kawan
+        function terimaDataKawan() {
+            // Jika watak kawan belum ada di padang, kita cipta satu!
+            if (!document.getElementById("watakKawan")) {
+                var kawanHTML = '<div id="watakKawan" style="position: absolute; font-size: 40px; z-index: 50; transition: left 0.1s, top 0.1s;">🧍‍♂️</div>';
+                // PENTING: Pastikan 'zonPeta' adalah nama ID tempat watak anda bergerak
+                document.getElementById("zonPeta").insertAdjacentHTML('beforeend', kawanHTML);
+            }
+
+            // Sentiasa sedia mendengar koordinat dari kawan
+            sambunganKawan.on('data', function(data) {
+                var watakK = document.getElementById("watakKawan");
+                if (watakK) {
+                    watakK.style.left = data.x + "px";
+                    watakK.style.top = data.y + "px";
+                }
+            });
+        }
+
+        // 5. Fungsi menghantar lokasi kita kepada kawan secara berterusan
+        setInterval(function() {
+            // PENTING: Pastikan 'watak' adalah nama ID watak utama anda di dalam HTML
+            var watakKita = document.getElementById("watak");
+            
+            if (sambunganKawan && watakKita) { 
+                var posisiX = parseInt(watakKita.style.left) || 0;
+                var posisiY = parseInt(watakKita.style.top) || 0;
+                
+                sambunganKawan.send({
+                    x: posisiX,
+                    y: posisiY
+                });
+            }
+        }, 50); // Hantar data setiap 50 milisaat supaya pergerakan nampak 'smooth'
+        // ==========================================
+
         }
     </script>
 </body>
