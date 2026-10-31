@@ -65,10 +65,27 @@
         .jawapan-salah { background-color: #dc3545 !important; color: white !important; border-color: #bd2130 !important; animation: gegar 0.4s; }
         @keyframes gegar { 0% { transform: translateX(0); } 25% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 75% { transform: translateX(-10px); } 100% { transform: translateX(0); } }
 
-        .papan-markah { font-size: 24px; color: #2c3e50; font-weight: bold; display: none; padding: 30px; background-color: #f8f9fa; border-radius: 15px; border: 3px solid #FFC107; max-width: 500px; margin: 0 auto; }
-        @media (max-width: 900px) { .main-content { margin: 30px 20px; } }
-    </style>
+.papan-markah { font-size: 24px; color: #2c3e50; font-weight: bold; display: none; padding: 30px; background-color: #f8f9fa; border-radius: 15px; border: 3px solid #FFC107; max-width: 500px; margin: 0 auto; }
+        
+/* --- (Ini kod Misi 1 yang sahabat letak tadi) --- */
+        @media (max-width: 900px) {
+            .kamera-skrin { height: 350px !important; width: 100% !important; border-width: 5px !important; }
+            .bar-nyawa { flex-direction: column; gap: 10px; }
+        }
+
+        /* --- TAMBAH KOD MISI 2 (LANGKAH 2) DI SINI --- */
+        /* Gaya asas butang disembunyikan dahulu */
+        .kawalan-mobile { display: none; text-align: center; margin-top: 15px; }
+        .btn-joy { font-size: 24px; padding: 15px 25px; margin: 5px; border-radius: 12px; background: #FFC107; border: 2px solid #e67e22; box-shadow: 0 4px 0 #d35400; cursor: pointer; }
+        .btn-joy:active { transform: translateY(4px); box-shadow: none; }
+
+        /* Pengesan: Jika skrin kecil (Telefon), tunjukkan Joystick! */
+        @media (max-width: 900px) {
+            .kawalan-mobile { display: block; }
+        }
+    </style> <!-- Ini adalah penutup ruangan style -->
 </head>
+
 <body>
 
     <div class="header-container">
@@ -122,8 +139,17 @@
             </div>
             
             <div class="kamera-skrin" id="kameraSkrin">
-                <div class="dunia-peta" id="duniaPeta"></div>
+                <div class="dunia-peta" id="duniaPeta">
+        </div>
                 
+                <!-- JOYSTICK MOBILE (Disembunyikan di PC) -->
+            <div class="kawalan-mobile" id="joystick">
+                <button class="btn-joy" ontouchstart="tekanButang('atas')" ontouchend="lepasButang('atas')" onmousedown="tekanButang('atas')" onmouseup="lepasButang('atas')">⬆️</button><br>
+                <button class="btn-joy" ontouchstart="tekanButang('kiri')" ontouchend="lepasButang('kiri')" onmousedown="tekanButang('kiri')" onmouseup="lepasButang('kiri')">⬅️</button>
+                <button class="btn-joy" ontouchstart="tekanButang('bawah')" ontouchend="lepasButang('bawah')" onmousedown="tekanButang('bawah')" onmouseup="lepasButang('bawah')">⬇️</button>
+                <button class="btn-joy" ontouchstart="tekanButang('kanan')" ontouchend="lepasButang('kanan')" onmousedown="tekanButang('kanan')" onmouseup="lepasButang('kanan')">➡️</button>
+            </div>
+
                 <div class="avatar" id="pemain">
                     <div class="nama" id="namaDiAtasKepala">Pelajar</div>
                     <span id="spritePemain">🧍‍♂️</span>
@@ -165,6 +191,9 @@
                 <h2 style="color: #28a745; font-size: 28px; margin-top: 10px;">Tahniah! Misi Selesai!</h2>
                 <p style="font-size: 18px;">Anda telah dianugerahkan gelaran <strong id="teksRanking" style="color:#e67e22; font-size: 22px;">Pangkat: LEGEND</strong></p>
                 <p style="font-size: 16px; color: #555;">Masa Rekod: <span id="masaAkhirMenang" style="font-weight: bold;">00:00</span></p>
+
+<!-- INI KOD BARU UNTUK LEADERBOARD -->
+<p style="font-size: 16px; color: #007bff; font-weight: bold;" id="paparanRekod"></p>
                 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <button onclick="terusMerayau()" style="flex: 1; background-color: #007bff; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Jalan-jalan Lagi 🚶‍♂️</button>
@@ -525,7 +554,7 @@
             document.getElementById("skorMisi").innerHTML = misiDiselesaikan.filter(Boolean).length;
         }
 
-        function tamatMenang() {
+function tamatMenang() {
             clearInterval(pemasaDetik); 
             var ranking = ""; var ikon = "";
             if (saatBerlalu <= 60) { ranking = "LEGEND"; ikon = "👑"; }       
@@ -539,6 +568,29 @@
             document.getElementById("ikonRanking").innerHTML = ikon;
             document.getElementById("teksRanking").innerHTML = "Pangkat: " + ranking;
             document.getElementById("masaAkhirMenang").innerHTML = document.getElementById("paparanMasa").innerHTML;
+            
+            // ==========================================
+            // SISTEM LEADERBOARD LOCAL (PILIHAN A)
+            // ==========================================
+            var namaMemori = "rekodBab_" + babDipilihSementera;
+            var rekodLama = localStorage.getItem(namaMemori);
+            var mesejRekod = "";
+
+            if (!rekodLama || saatBerlalu < parseInt(rekodLama)) {
+                // Jika tiada rekod lama ATAU masa sekarang lebih pantas (kurang saat)
+                localStorage.setItem(namaMemori, saatBerlalu);
+                mesejRekod = "🎉 TAHNIAH! REKOD BARU DICIAPTA!";
+            } else {
+                // Jika rekod lama lebih pantas, tunjukkan masa rekod lama
+                var minitLama = Math.floor(rekodLama / 60);
+                var saatLama = rekodLama % 60;
+                if (minitLama < 10) minitLama = "0" + minitLama;
+                if (saatLama < 10) saatLama = "0" + saatLama;
+                mesejRekod = "🏆 Rekod Terbaik Anda: " + minitLama + ":" + saatLama;
+            }
+            document.getElementById("paparanRekod").innerHTML = mesejRekod;
+            // ==========================================
+
             document.getElementById("modalMenang").style.display = "flex";
         }
 
@@ -572,6 +624,21 @@
             document.getElementById("zonPeta").style.display = "none";
             document.getElementById("papanMarkahKalah").style.display = "none";
             document.getElementById("menuKuiz").style.display = "block";
+
+        // Fungsi membaca sentuhan jari pada skrin telefon (Joystick)
+        function tekanButang(arah) {
+            if(arah === 'atas') kekunciDitekan.atas = true;
+            if(arah === 'bawah') kekunciDitekan.bawah = true;
+            if(arah === 'kiri') { kekunciDitekan.kiri = true; menghadapKanan = false; }
+            if(arah === 'kanan') { kekunciDitekan.kanan = true; menghadapKanan = true; }
+        }
+        function lepasButang(arah) {
+            if(arah === 'atas') kekunciDitekan.atas = false;
+            if(arah === 'bawah') kekunciDitekan.bawah = false;
+            if(arah === 'kiri') kekunciDitekan.kiri = false;
+            if(arah === 'kanan') kekunciDitekan.kanan = false;
+        }
+        
         }
     </script>
 </body>
